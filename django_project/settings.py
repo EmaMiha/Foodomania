@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-dzj)%do0k%vi-(2w5y^w!o-qp)vd6ve^29pg2#qb*zwgq&e8ag'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-emamiha-foodomania-lle62yzgd32.ws.codeinstitute-ide.net','.herokuapp.com']
 
@@ -85,9 +85,14 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 #   }
 # }
 
+
+
+
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.parse("postgres://ema:EMAMIHA1412@ep-gentle-mountain-a23bxz6h-pooler.eu-central-1.aws.neon.tech/emamiha")
 }
+
+
 
 
 # Password validation
