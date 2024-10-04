@@ -16,10 +16,10 @@ class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(max_length=150)
     password = forms.CharField(widget=forms.PasswordInput)
 
-
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['title', 'instructions', 'ingredients', 'diet', 'categories']  # Add any fields you want to include
+        fields = ['title', 'instructions', 'ingredients', 'diet', 'categories']  
         diet = forms.ModelChoiceField(queryset=Diet.objects.all(), empty_label="Select Diet")
         categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.CheckboxSelectMultiple)
+
