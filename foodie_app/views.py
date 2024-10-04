@@ -47,3 +47,7 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
+
+def home(request):
+    recipes = Recipe.objects.all()  # Fetch all posts (recipes)
+    return render(request, 'home.html', {'recipes': recipes})
