@@ -30,4 +30,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'), 
     path('register/', views.register, name='register'),
     path('home/', views.home, name='home'),
+    path('add-recipe/', views.add_recipe, name='add_recipe')
 ]

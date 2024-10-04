@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Recipe</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/add_recipes.css' %}"> <!-- Adjust the path as needed -->
+    <style>
+
+.errorlist {
+    color: red;  /* Change text color to red for errors */
+    margin: 5px 0;
+    padding: 0;
+    list-style-type: none;  /* Remove bullet points */
+}
+
+        </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add a New Recipe</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <!-- Display error messages for each field -->
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <ul class="errorlist">
+                        <li>{{ error }}</li>
+                    </ul>
+                {% endfor %}
+            {% endfor %}
+
+            <button type="submit">Add Recipe</button>
+        </form>
+        <div class="footer">
+            <p><a href="{% url 'home' %}">Back to Home</a></p>
+        </div>
+    </div>
+</body>
+</html>

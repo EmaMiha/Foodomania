@@ -51,3 +51,15 @@ def register(request):
 def home(request):
     recipes = Recipe.objects.all()  # Fetch all posts (recipes)
     return render(request, 'home.html', {'recipes': recipes})
+def add_recipe(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            recipe = form.save(commit=False)
+            recipe.author = request.user
+            form.save()  # Save the new recipe to the database
+            
+            return redirect('home')  # Redirect to the home page after saving
+    else:
+        form = RecipeForm()
+    return render(request, 'add_recipe.html', {'form': form})
