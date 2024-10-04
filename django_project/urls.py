@@ -19,6 +19,6 @@ from django.urls import path, include
 from foodie_app import views as index_views
 
 urlpatterns = [
-    path('', index_views.index, name='index'),
     path('admin/', admin.site.urls),
+    path('', include('foodie_app.urls')),  # Include your app's URLs
 ]
