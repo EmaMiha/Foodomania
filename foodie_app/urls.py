@@ -24,10 +24,8 @@ from django.urls import path
 from . import views  # Import views
 from django.contrib.auth.views import LogoutView  # Import the LogoutView
 
+
 urlpatterns = [
-    path('', views.login_view, name='login'),  # Redirect root to login
-    path('register/', views.register, name='register'),
-    path('home/', views.home, name='home'),
-    path('add-recipe/', views.add_recipe, name='add_recipe'), 
+    path('', views.login_view, name='login'),  
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'), 
 ]
