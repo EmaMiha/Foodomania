@@ -30,3 +30,20 @@ def login_view(request):
     else:
         form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            # login(request, user)
+            messages.success(request, 'Registration successful.')
+            return redirect('logiin')  # Redirect to a login
+        else:
+            print(form.errors)
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'register.html', {'form': form})

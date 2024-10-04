@@ -28,4 +28,5 @@ from django.contrib.auth.views import LogoutView  # Import the LogoutView
 urlpatterns = [
     path('', views.login_view, name='login'),  
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'), 
+    path('register/', views.register, name='register'),
 ]
