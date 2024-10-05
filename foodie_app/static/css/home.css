@@ -123,3 +123,19 @@ footer p {
     background-color: #218838; /* Darker green on hover */
     transform: translateY(-2px); /* Lift effect */
 }
+
+.delete-button {
+
+color:white;
+border: none;
+border-radius: 5px;
+padding: 5px 10px;
+cursor: pointer;
+
+}
+
+
+.delete-button:hover{
+
+    background-color: red;
+}

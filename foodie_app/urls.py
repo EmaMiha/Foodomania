@@ -26,9 +26,10 @@ from django.contrib.auth.views import LogoutView  # Import the LogoutView
 
 
 urlpatterns = [
-    path('', views.login_view, name='login'),  
+    path('', views.home, name='home'),  
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'), 
     path('register/', views.register, name='register'),
-    path('home/', views.home, name='home'),
-    path('add-recipe/', views.add_recipe, name='add_recipe')
+    path('login/', views.login_view, name='login'),
+    path('add-recipe/', views.add_recipe, name='add_recipe'),
+    path("delete-recipe/<int:recipe_id>/",views.delete_recipe,name="delete_recipe"),
 ]

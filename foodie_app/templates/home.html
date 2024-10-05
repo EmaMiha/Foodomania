@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,29 +8,53 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
+
 <body>
     <div class="container">
         <h2>Welcome to the Home Page</h2>
         <h3>Your Recipes:</h3>
         <div class="recipe-list">
             {% for recipe in recipes %}
-                <div class="recipe-card">
-                    <h4>{{ recipe.title }}</h4>
-                    <p class="author">by {{ recipe.author.username }}</p>
-                    <p>{{ recipe.instructions }}</p>
-                </div>
+            <div class="recipe-card">
+                <h4>{{ recipe.title }}</h4>
+                <p class="author">by {{ recipe.author.username }}</p>
+                <p>{{ recipe.instructions }}</p>
+                <p> <strong>Created at:</strong> {{ recipe.created_at|date:"Y-m-d H:i" }} </p>
+                {% if user.is_authenticated and user == recipe.author %}
+                <form action="{% url 'delete_recipe' recipe.id %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+                {% endif %}
+            </div>
             {% empty %}
-                <div class="no-recipes">No recipes available.</div>
+            <div class="no-recipes">No recipes available.</div>
             {% endfor %}
         </div>
-    </div>
+        {% if not user.is_authenticated %}
+        <div class="auth-links">
+            <p>
+                <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
+            </p>
 
+        </div>
+        {% endif %}
+    </div>
+    {% if user.is_authenticated %}
     <div class="add-recipe-button-container">
         <a href="{% url 'add_recipe' %}" class="add-recipe-button">Add a New Recipe</a>
     </div>
+    {% endif %}
 
     <footer>
+        {% if user.is_authenticated %}
         <p><a href="{% url 'logout' %}">Logout</a></p>
+        {% endif %}
+        {% if not user.is_authenticated %}
+        <p>Welcome to foodomania page</p>
+        {% endif %}
+
     </footer>
 </body>
+
 </html>

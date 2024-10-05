@@ -1,18 +1,17 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.views import LogoutView
-
-
-def index(request):
-    return render(request,"login.html")
-
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 from .models import Recipe  
 from .forms import RecipeForm 
+from django.shortcuts import get_object_or_404
+
+def index(request):
+    return render(request,"login.html")
 
 
 def login_view(request):
@@ -50,7 +49,10 @@ def register(request):
 
 def home(request):
     recipes = Recipe.objects.all()  # Fetch all posts (recipes)
-    return render(request, 'home.html', {'recipes': recipes})
+    return render(request, 'home.html', {'recipes': recipes, 'user':request.user})
+
+
+
 def add_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST)
@@ -63,3 +65,13 @@ def add_recipe(request):
     else:
         form = RecipeForm()
     return render(request, 'add_recipe.html', {'form': form})
+
+def delete_recipe(request,recipe_id):
+    if request.method=='POST':
+        recipe=get_object_or_404(Recipe,id=recipe_id,author=request.user)
+        recipe.delete()
+        return redirect('home')
+    else:
+        return redirect('home')
+
+
