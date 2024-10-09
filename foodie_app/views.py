@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
-from .models import Recipe  
+from .models import Recipe,Comment
 from .forms import RecipeForm 
 from django.shortcuts import get_object_or_404
 
@@ -86,4 +86,15 @@ def update_recipe(request, recipe_id):
         form=RecipeForm(instance=recipe)
     
     return render(request,"update_recipe.html",{'form':form,'recipe':recipe})
+
+
+def add_comment(request,recipe_id):
+    if request.method=='POST':
+        recipe=get_object_or_404(Recipe,id=recipe_id)
+        content=request.POST.get('content')
+        comment=Comment(recipe=recipe,author=request.user,content=content)
+        comment.save()
+        return redirect('home')
+    
+
 
