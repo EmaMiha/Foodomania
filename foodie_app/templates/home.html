@@ -20,11 +20,14 @@
                 <p class="author">by {{ recipe.author.username }}</p>
                 <p>{{ recipe.instructions }}</p>
                 <p> <strong>Created at:</strong> {{ recipe.created_at|date:"Y-m-d H:i" }} </p>
+                <p> <strong>Updated at:</strong> {{ recipe.updated_at|date:"Y-m-d H:i" }} </p>
+
                 {% if user.is_authenticated and user == recipe.author %}
                 <form action="{% url 'delete_recipe' recipe.id %}" method="POST" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="delete-button">Delete</button>
                 </form>
+                <a href="{% url 'update_recipe' recipe.id %}" class="update-button">Update</a>
                 {% endif %}
             </div>
             {% empty %}

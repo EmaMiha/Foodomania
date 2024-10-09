@@ -75,3 +75,15 @@ def delete_recipe(request,recipe_id):
         return redirect('home')
 
 
+def update_recipe(request, recipe_id):
+    recipe=get_object_or_404(Recipe,id=recipe_id,author=request.user)
+    if request.method=='POST':
+        form=RecipeForm(request.POST,instance=recipe)
+        if form.is_valid():
+            form.save()
+        return redirect('home')
+    else:
+        form=RecipeForm(instance=recipe)
+    
+    return render(request,"update_recipe.html",{'form':form,'recipe':recipe})
+

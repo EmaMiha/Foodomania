@@ -18,7 +18,7 @@ class Recipe(models.Model):
     title=models.CharField(max_length=200)
     diet=models.ManyToManyField(Diet,related_name="recipes")
     author=models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at=models.DateTimeField(auto_now=True)
+    created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     instructions=models.TextField()
     ingredients=models.TextField()

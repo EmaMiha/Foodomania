@@ -139,3 +139,17 @@ cursor: pointer;
 
     background-color: red;
 }
+
+
+.update-button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.update-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
