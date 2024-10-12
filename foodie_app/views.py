@@ -92,9 +92,25 @@ def add_comment(request,recipe_id):
     if request.method=='POST':
         recipe=get_object_or_404(Recipe,id=recipe_id)
         content=request.POST.get('content')
+        parent_id=request.POST.get('parent_id')
         comment=Comment(recipe=recipe,author=request.user,content=content)
+        
+        if parent_id:
+            parent_comment=get_object_or_404(Comment,id=parent_id)
+            comment.parent=parent_comment
         comment.save()
         return redirect('home')
     
 
+
+
+def delete_comment(request,comment_id):
+
+    comment=get_object_or_404(Comment,id=comment_id,author=request.user)
+    comment.replies.all().delete()
+    comment.delete()
+        
+        
+    return redirect('home')
+    
 

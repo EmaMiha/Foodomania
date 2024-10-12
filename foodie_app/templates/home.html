@@ -39,18 +39,50 @@
                         <button type="submit" class="comment-button">Comment</button>
                     </form>
                     {% endif %}
-                <div class="allcomm">
+                    <div class="allcomm">
 
-                    <h5>All Comments</h5>
-                    {% for comment in recipe.comments.all %}
-                    <div class="comment">
-                        <p><strong>{{ comment.author.username}} : </strong> {{ comment.content}}</p>
+                        <h5>All Comments</h5>
+                        {% for comment in recipe.comments.all %}
+                        <div class="comment">
+                            <p><strong>{{ comment.author.username}} : </strong> {{ comment.content}}</p>
+                            <p class="comment-date">{{ comment.created_at|date:"Y-m-d H:i" }}</p>
+                  
+
+                            {% if user.is_authenticated and user == comment.author %}
+                            <form action="{% url 'delete_comment' comment.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+
+                            {% endif %}
+
+                            {% if user.is_authenticated %}
+
+                            <form action="{% url 'add_comment' recipe.id %}" method="POST" style="display:inline">
+                                {% csrf_token %}
+                                <textarea name="content" rows="3" cols="10" placeholder="Reply..." required></textarea>
+                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                <button type="submit" class="reply-button">Reply</button>
+                            </form>
+
+                            {% endif %}
+                            
+                            <div class="replies">
+                                {% for reply in comment.replies.all %}
+                                    <div class="comment">
+                                        <p><strong>{{ reply.author.username }}</strong>: {{ reply.content }}</p>
+                                        <p class="comment-date">{{ reply.created_at|date:"Y-m-d H:i" }}</p>
+                                    </div>
+                                {% empty %}
+                                    <p>No replies yet.</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p>No comments yet</p>
+                        {% endfor %}
                     </div>
-                       {% empty %}
-                     <p>No comment</p>
-{% endfor %}
-                </div>
-                 
+
 
                 </div>
             </div>
