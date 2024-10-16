@@ -40,7 +40,7 @@ def register(request):
             user = authenticate(username=username, password=password)
             # login(request, user)
             messages.success(request, 'Registration successful.')
-            return redirect('logiin')  # Redirect to a login
+            return redirect('login')  # Redirect to a login
         else:
             print(form.errors)
     else:
@@ -55,7 +55,7 @@ def home(request):
 
 def add_recipe(request):
     if request.method == 'POST':
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST,request.FILES)
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
@@ -112,5 +112,7 @@ def delete_comment(request,comment_id):
         
         
     return redirect('home')
-    
+
+
+
 

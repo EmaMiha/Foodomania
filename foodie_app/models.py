@@ -23,7 +23,8 @@ class Recipe(models.Model):
     instructions=models.TextField()
     ingredients=models.TextField()
     categories=models.ManyToManyField(Category,related_name="recipes")
-
+    image=models.ImageField(upload_to="recipes/images/",blank=True,null=True)
+    
     def __str__(self):
         return self.title
     def edit_instructions(self,new_instructions):
