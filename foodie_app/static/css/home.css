@@ -151,7 +151,7 @@ cursor: pointer;
 }
 
 .update-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3; 
 }
 .allcomm {
 
@@ -186,4 +186,29 @@ cursor: pointer;
 
 .reply-button:hover{
     background-color: #007bff;
+}
+
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #007bff; 
+    border: 1px solid #007bff; 
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: #007bff; 
+}
+
+.pagination .current {
+    margin: 0 5px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
 }

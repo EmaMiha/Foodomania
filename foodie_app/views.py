@@ -9,6 +9,7 @@ from .forms import CustomUserCreationForm, CustomAuthenticationForm
 from .models import Recipe,Comment
 from .forms import RecipeForm 
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator
 
 def index(request):
     return render(request,"login.html")
@@ -49,7 +50,12 @@ def register(request):
 
 def home(request):
     recipes = Recipe.objects.all()  # Fetch all posts (recipes)
-    return render(request, 'home.html', {'recipes': recipes, 'user':request.user})
+    paginator=Paginator(recipes,6)
+    
+    page_number=request.GET.get('page')
+    recipess=paginator.get_page(page_number)
+    
+    return render(request, 'home.html', {'recipes': recipess, 'user':request.user})
 
 
 
