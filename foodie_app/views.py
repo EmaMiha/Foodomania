@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
-from .models import Recipe,Comment
+from .models import Recipe,Comment,Category,Diet
 from .forms import RecipeForm 
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
@@ -49,13 +49,29 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 def home(request):
-    recipes = Recipe.objects.all()  # Fetch all posts (recipes)
-    paginator=Paginator(recipes,6)
+    search_query=request.GET.get('search',  '')
+    recipes = Recipe.objects.filter(title__icontains=search_query)  
+    selected_diets=request.GET.getlist('diets')
+    selected_categories=request.GET.getlist('categories')
+    
+    
+    if  selected_diets:
+        recipes=recipes.filter(diet__id__in=selected_diets).distinct()
+        
+    if  selected_categories:
+        recipes=recipes.filter(categories__id__in=selected_categories).distinct()
+        
+    
+    paginator=Paginator(recipes,6)    
     
     page_number=request.GET.get('page')
     recipess=paginator.get_page(page_number)
     
-    return render(request, 'home.html', {'recipes': recipess, 'user':request.user})
+    diets=Diet.objects.all()
+    categories=Category.objects.all()
+    
+    
+    return render(request, 'home.html', {'recipes': recipess, 'search_query':search_query,'diets':diets,'categories':categories,'selected_categories':selected_categories,'selected_diets':selected_diets})
 
 
 

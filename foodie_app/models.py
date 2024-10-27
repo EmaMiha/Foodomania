@@ -32,6 +32,9 @@ class Recipe(models.Model):
         self.save()
     def delete_recipe(self):
         self.delete()
+        
+    class Meta:
+        ordering=['-created_at']
 
 class Comment(models.Model):
     recipe=models.ForeignKey(Recipe,on_delete=models.CASCADE,related_name="comments")

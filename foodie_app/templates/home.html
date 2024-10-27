@@ -13,6 +13,38 @@
     <div class="container">
         <h2>Welcome to the Home Page</h2>
         <h3>Your Recipes:</h3>
+        <div class="search-container">
+            <form method="GET" action="">
+
+                <input type="text" name="search" placeholder="Search recipies" value="{{ search_query }}">
+                 <button type="submit"> Search</button>
+            </div>
+            <div class="filter-container">
+
+
+
+                    <div>
+                        <h4>Diets:</h4>
+                        {% for diet in diets %}
+                        <label>
+                            <input type="checkbox" name="diets" value="{{ diet.id }}"
+                            {% if diet.id|stringformat:'d' in selected_diets %} checked {% endif %} >
+                            {{ diet.name }}
+                        </label>
+                        {%  endfor %}
+                    </div>
+                    <div>
+                        <h4>Categories:</h4>
+                        {% for c in categories %}
+                        <label>
+                            <input type="checkbox" name="categories" value="{{ c.id }}"
+                            {% if c.id|stringformat:'d' in selected_categories %} checked {% endif %}>
+                            {{ c.name }}
+                        </label>
+                        {%  endfor %}
+                    </div>
+                </form>
+            </div>
         <div class="recipe-list">
             {% for recipe in recipes %}
             <div class="recipe-card">
@@ -42,7 +74,7 @@
                     {% endif %}
                     <div class="allcomm">
 
-                        <h5>All Comments</h5>
+                        <h5>All Comments {{ recipe.comments.count }}</h5>
                         {% for comment in recipe.comments.all %}
                         <div class="comment">
                             <p><strong>{{ comment.author.username}} : </strong> {{ comment.content}}</p>
