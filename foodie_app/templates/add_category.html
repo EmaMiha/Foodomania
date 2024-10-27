@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+</head>
+
+<body>
+    <div class="container">
+    <h2>Add a New Recipe</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <!-- Display error messages for each field -->
+        {% for field in form %}
+        {% for error in field.errors %}
+        <ul class="errorlist">
+            <li>{{ error }}</li>
+        </ul>
+        {% endfor %}
+        {% endfor %}
+
+        <button type="submit">Add Category</button>
+    </form>
+    <div class="footer">
+        <p><a href="{% url 'home' %}">Back to Home</a></p>
+    </div>
+    </div>
+</body>
+
+</html>

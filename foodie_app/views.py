@@ -5,15 +5,48 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm, CustomAuthenticationForm
+from .forms import CustomUserCreationForm, CustomAuthenticationForm,CategoryForm,DietForm
 from .models import Recipe,Comment,Category,Diet
 from .forms import RecipeForm 
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
-
+from django.contrib.auth.decorators import user_passes_test
 def index(request):
     return render(request,"login.html")
 
+def is_admin(user):
+    return user.is_superuser
+
+
+@login_required
+@user_passes_test(is_admin)
+def add_category(request):
+    if request.method=="POST":
+        form=CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        
+    else:
+        form=CategoryForm()
+    
+    return render(request, 'add_category.html', {'form': form})
+
+
+
+@login_required
+@user_passes_test(is_admin)
+def add_diet(request):
+    if request.method=="POST":
+        form=DietForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        
+    else:
+        form=DietForm()
+    
+    return render(request, 'add_diet.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':

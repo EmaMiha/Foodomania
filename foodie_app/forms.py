@@ -27,3 +27,15 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model=Comment
         fields=['content']
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model=Category
+        fields=['name','description']
+
+
+class DietForm(forms.ModelForm):
+    class Meta:
+        model=Diet
+        fields=['name','description']

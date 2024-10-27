@@ -45,6 +45,11 @@
                     </div>
                 </form>
             </div>
+            {% if  user.is_authenticated  and user.is_superuser %}
+<div class="admin-link">
+    <a href="{% url 'add_category' %}">Add category </a> |  <a href="{% url 'add_diet' %}">Add diet </a>
+</div>
+            {% endif %}
         <div class="recipe-list">
             {% for recipe in recipes %}
             <div class="recipe-card">
