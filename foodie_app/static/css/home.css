@@ -5,6 +5,10 @@ body {
     padding: 0;
 }
 
+ul {
+    list-style-type: none;
+}
+
 .container {
     width: 90%;
     max-width: 900px;
@@ -40,7 +44,8 @@ h3 {
     padding: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
-    overflow: hidden; /* Ensures content doesn't overflow the card */
+    overflow: hidden;
+    /* Ensures content doesn't overflow the card */
 }
 
 .recipe-card:hover {
@@ -49,7 +54,8 @@ h3 {
 }
 
 .recipe-card h4 {
-    color: #007bff; /* Blue color for recipe title */
+    color: #007bff;
+    /* Blue color for recipe title */
     margin: 0 0 10px;
 }
 
@@ -61,7 +67,8 @@ h3 {
 
 .recipe-card p {
     color: #333;
-    line-height: 1.5; /* Improved readability */
+    line-height: 1.5;
+    /* Improved readability */
 }
 
 .no-recipes {
@@ -76,7 +83,8 @@ h3 {
     padding: 12px 25px;
     text-align: center;
     color: white;
-    background-color: #28a745; /* Green color */
+    background-color: #28a745;
+    /* Green color */
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
@@ -84,7 +92,8 @@ h3 {
 }
 
 .add-recipe-button:hover {
-    background-color: #218838; /* Darker green on hover */
+    background-color: #218838;
+    /* Darker green on hover */
     transform: scale(1.05);
 }
 
@@ -100,10 +109,14 @@ footer p {
 
 
 .add-recipe-button-container {
-    position: fixed; /* Fix the button to the side */
-    right: 20px; /* Position from the right */
-    bottom: 20px; /* Position from the bottom */
-    z-index: 100; /* Ensure it stays on top */
+    position: fixed;
+    /* Fix the button to the side */
+    right: 20px;
+    /* Position from the right */
+    bottom: 20px;
+    /* Position from the bottom */
+    z-index: 100;
+    /* Ensure it stays on top */
 }
 
 .add-recipe-button {
@@ -111,7 +124,8 @@ footer p {
     padding: 15px 20px;
     text-align: center;
     color: white;
-    background-color: #28a745; /* Green color */
+    background-color: #28a745;
+    /* Green color */
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
@@ -120,29 +134,32 @@ footer p {
 }
 
 .add-recipe-button:hover {
-    background-color: #218838; /* Darker green on hover */
-    transform: translateY(-2px); /* Lift effect */
+    background-color: #218838;
+    /* Darker green on hover */
+    transform: translateY(-2px);
+    /* Lift effect */
 }
 
 .delete-button {
 
-color:white;
-border: none;
-border-radius: 5px;
-padding: 5px 10px;
-cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 
 }
 
 
-.delete-button:hover{
+.delete-button:hover {
 
     background-color: red;
 }
 
 
 .update-button {
-    background-color: #007bff; /* Bootstrap primary color */
+    background-color: #007bff;
+    /* Bootstrap primary color */
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
@@ -151,8 +168,9 @@ cursor: pointer;
 }
 
 .update-button:hover {
-    background-color: #0056b3; 
+    background-color: #0056b3;
 }
+
 .allcomm {
 
     margin-top: 20px;
@@ -162,7 +180,7 @@ cursor: pointer;
 
 }
 
-.comment{
+.comment {
 
     margin-bottom: 10px;
     padding: 5px;
@@ -171,20 +189,20 @@ cursor: pointer;
 }
 
 
-.comment p{
+.comment p {
     margin-top: 5px 0;
 }
 
-.reply-button{
+.reply-button {
 
     background-color: #28a745;
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.reply-button:hover{
+.reply-button:hover {
     background-color: #007bff;
 }
 
@@ -197,13 +215,13 @@ cursor: pointer;
     margin: 0 5px;
     padding: 8px 12px;
     text-decoration: none;
-    color: #007bff; 
-    border: 1px solid #007bff; 
+    color: #007bff;
+    border: 1px solid #007bff;
     border-radius: 5px;
 }
 
 .pagination a:hover {
-    background-color: #007bff; 
+    background-color: #007bff;
 }
 
 .pagination .current {
@@ -213,25 +231,83 @@ cursor: pointer;
     background-color: #f0f0f0;
 }
 
-.search-container{
+.search-container {
 
-    margin:20px 0;
+
+    margin: 20px 0;
     text-align: center;
 }
 
-.search-container input[type="text"]{
+.search-container input[type="text"] {
 
     padding: 10px;
     display: block;
-    width: 30%;
+    width: 100%;
 }
 
-.search-container button{
 
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+
+header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+}
+
+.nav-links {
+
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+
+}
+
+.nav-links li {
+    padding: 10px;
+}
+
+.nav-links a,
+.link {
+
+    color: blue;
+    text-decoration: none;
+}
+
+
+
+.nav-links a:hover {
+
+
+    color: gray;
+    text-shadow: 0 0 1px red;
+
+}
+
+footer p {
+
+    padding: 20px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.search_form {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.filtchk {
+
+    display: flex;
+    flex-direction: column;
 }

@@ -6,68 +6,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
 
 <body>
     <div class="container">
-        <h2>Welcome to the Home Page</h2>
-        <h3>Your Recipes:</h3>
-        <div class="search-container">
-            <form method="GET" action="">
+        <header>
+            <h2>FoodoMania</h2>
 
-                <input type="text" name="search" placeholder="Search recipies" value="{{ search_query }}">
-                 <button type="submit"> Search</button>
+            <ul class="nav-links">
+                {% if not user.is_authenticated %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+
+
+                {% endif %}
+
+
+                {% if  user.is_authenticated  and user.is_superuser %}
+               
+                    <li><a href="{% url 'add_category' %}">Add category </a></li>
+                    <li><a href="{% url 'add_diet' %}">Add diet </a></li>
+               
+                {% endif %}
+
+
+                {% if user.is_authenticated %}
+           
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li>User: {{ user.username }}</li>
+                {% endif %}
+
+               
+
+
+            </ul>
+        </header>
+
+        <div class="container mt-4">
+
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <img src="/media/recipes/images/cover.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item active">
+                        <img src="/media/recipes/images/auto.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/media/recipes/images/auto_vIN3DLh.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <div class="filter-container">
+
+        </div>
 
 
+        <div class="container mb-5 mt-5">
+            <form method="GET" action="" class="search_form">
+                <div class="search-container">
+                    <input type="text" name="search" placeholder="Search recipies" value="{{ search_query }}">
 
+                </div>
+                <div class="filter-container">
                     <div>
                         <h4>Diets:</h4>
-                        {% for diet in diets %}
-                        <label>
-                            <input type="checkbox" name="diets" value="{{ diet.id }}"
-                            {% if diet.id|stringformat:'d' in selected_diets %} checked {% endif %} >
-                            {{ diet.name }}
-                        </label>
-                        {%  endfor %}
+                        <div class="filtchk">
+                            {% for diet in diets %}
+                            <label>
+                                <input type="checkbox" name="diets" value="{{ diet.id }}"
+                                    {% if diet.id|stringformat:'d' in selected_diets %} checked {% endif %}
+                                    class="check">
+                                {{ diet.name }}
+                            </label>
+                            {%  endfor %}
+                        </div>
                     </div>
                     <div>
                         <h4>Categories:</h4>
-                        {% for c in categories %}
-                        <label>
-                            <input type="checkbox" name="categories" value="{{ c.id }}"
-                            {% if c.id|stringformat:'d' in selected_categories %} checked {% endif %}>
-                            {{ c.name }}
-                        </label>
-                        {%  endfor %}
+                        <div class="filtchk">
+                            {% for c in categories %}
+                            <label>
+                                <input type="checkbox" name="categories" value="{{ c.id }}"
+                                    {% if c.id|stringformat:'d' in selected_categories %} checked {% endif %}
+                                    class="check">
+                                {{ c.name }}
+                            </label>
+                            {%  endfor %}
+                        </div>
                     </div>
-                </form>
-            </div>
-            {% if  user.is_authenticated  and user.is_superuser %}
-<div class="admin-link">
-    <a href="{% url 'add_category' %}">Add category </a> |  <a href="{% url 'add_diet' %}">Add diet </a>
-</div>
-            {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary offset-4 col-3"> Search</button>
+            </form>
+        </div>
+       
         <div class="recipe-list">
             {% for recipe in recipes %}
             <div class="recipe-card">
                 <h4>{{ recipe.title }}</h4>
                 <p class="author">by {{ recipe.author.username }}</p>
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="recipe-image"> 
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="recipe-image">
                 <p>{{ recipe.instructions }}</p>
                 <p> <strong>Created at:</strong> {{ recipe.created_at|date:"Y-m-d H:i" }} </p>
                 <p> <strong>Updated at:</strong> {{ recipe.updated_at|date:"Y-m-d H:i" }} </p>
 
-                {% if  user.is_authenticated  and user.is_authenticated  %}
+                {% if  user.is_authenticated %} 
+                {% if user.is_superuser or user == recipe.author %}
                 <form action="{% url 'delete_recipe' recipe.id %}" method="POST" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="delete-button">Delete</button>
                 </form>
+                {% endif %}
+                {% if user == recipe.author %}
                 <a href="{% url 'update_recipe' recipe.id %}" class="update-button">Update</a>
                 {% endif %}
-
+                {% endif %}
                 <div class="comments-section">
                     {% if user.is_authenticated %}
                     <h5>Add Comments</h5>
@@ -85,14 +159,16 @@
                             <p><strong>{{ comment.author.username}} : </strong> {{ comment.content}}</p>
 
                             <p class="comment-date">{{ comment.created_at|date:"Y-m-d H:i" }}</p>
-                  
 
-                            {% if user.is_authenticated and user == comment.author %}
+
+                            {% if user.is_authenticated %}
+                             {% if  user == comment.author or user.is_superuser %}
                             <form action="{% url 'delete_comment' comment.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" class="delete-button">Delete</button>
                             </form>
 
+                            {% endif %}
                             {% endif %}
 
                             {% if user.is_authenticated %}
@@ -105,15 +181,15 @@
                             </form>
 
                             {% endif %}
-                            
+
                             <div class="replies">
                                 {% for reply in comment.replies.all %}
-                                    <div class="comment">
-                                        <p><strong>{{ reply.author.username }}</strong>: {{ reply.content }}</p>
-                                        <p class="comment-date">{{ reply.created_at|date:"Y-m-d H:i" }}</p>
-                                    </div>
+                                <div class="comment">
+                                    <p><strong>{{ reply.author.username }}</strong>: {{ reply.content }}</p>
+                                    <p class="comment-date">{{ reply.created_at|date:"Y-m-d H:i" }}</p>
+                                </div>
                                 {% empty %}
-                                    <p>No replies yet.</p>
+                                <p>No replies yet.</p>
                                 {% endfor %}
                             </div>
                         </div>
@@ -133,29 +209,22 @@
         <div class="pagination">
             <span class="step-links">
                 {% if recipes.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ recipes.previous_page_number }}">previous</a>
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ recipes.previous_page_number }}">previous</a>
                 {% endif %}
-        
+
                 <span class="current">
                     Page {{ recipes.number }} of {{ recipes.paginator.num_pages }}.
                 </span>
-        
+
                 {% if recipes.has_next %}
-                    <a href="?page={{ recipes.next_page_number }}">next</a>
-                    <a href="?page={{ recipes.paginator.num_pages }}">last &raquo;</a>
+                <a href="?page={{ recipes.next_page_number }}">next</a>
+                <a href="?page={{ recipes.paginator.num_pages }}">last &raquo;</a>
                 {% endif %}
             </span>
         </div>
 
-        {% if not user.is_authenticated %}
-        <div class="auth-links">
-            <p>
-                <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
-            </p>
 
-        </div>
-        {% endif %}
     </div>
     {% if user.is_authenticated %}
     <div class="add-recipe-button-container">
@@ -165,14 +234,14 @@
 
 
     <footer>
-        {% if user.is_authenticated %}
-        <p><a href="{% url 'logout' %}">Logout</a></p>
-        {% endif %}
-        {% if not user.is_authenticated %}
+
         <p>Welcome to foodomania page</p>
-        {% endif %}
+
 
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

@@ -122,13 +122,11 @@ def add_recipe(request):
     return render(request, 'add_recipe.html', {'form': form})
 
 def delete_recipe(request,recipe_id):
-    if request.method=='POST':
-        recipe=get_object_or_404(Recipe,id=recipe_id,author=request.user)
+    recipe=get_object_or_404(Recipe,id=recipe_id)
+    if  request.user==recipe.author or request.user.is_superuser:
         recipe.delete()
-        return redirect('home')
-    else:
-        return redirect('home')
-
+    return redirect('home')
+   
 
 def update_recipe(request, recipe_id):
     recipe=get_object_or_404(Recipe,id=recipe_id,author=request.user)
@@ -161,9 +159,11 @@ def add_comment(request,recipe_id):
 
 def delete_comment(request,comment_id):
 
-    comment=get_object_or_404(Comment,id=comment_id,author=request.user)
-    comment.replies.all().delete()
-    comment.delete()
+    comment=get_object_or_404(Comment,id=comment_id)
+    if  request.user==comment.author or request.user.is_superuser:
+
+        comment.replies.all().delete()
+        comment.delete()
         
         
     return redirect('home')
