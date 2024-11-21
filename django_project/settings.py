@@ -29,12 +29,12 @@ SECRET_KEY = 'django-insecure-dzj)%do0k%vi-(2w5y^w!o-qp)vd6ve^29pg2#qb*zwgq&e8ag
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-emamiha-foodomania-lle62yzgd32.ws.codeinstitute-ide.net','.herokuapp.com','127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net','.herokuapp.com','127.0.0.1', 'localhost']
 
 # settings.py
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-emamiha-foodomania-lle62yzgd32.ws.codeinstitute-ide.net',
+    'https://8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net',
 ]
 
 
@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.parse("postgres://ema:EMAMIHA1412@ep-gentle-mountain-a23bxz6h-pooler.eu-central-1.aws.neon.tech/emamiha")
+    'default': dj_database_url.parse("postgres://ema2:EMAMIHA1412@ep-gentle-mountain-a23bxz6h-pooler.eu-central-1.aws.neon.tech/emamiha2")
 }
 
 
