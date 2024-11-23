@@ -11,6 +11,7 @@ from .forms import RecipeForm
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import user_passes_test
+from django.http import JsonResponse
 def index(request):
     return render(request,"login.html")
 
@@ -164,9 +165,23 @@ def delete_comment(request,comment_id):
 
         comment.replies.all().delete()
         comment.delete()
-        
-        
     return redirect('home')
+
+
+@login_required
+def like_recipe(request,recipe_id):
+    recipe=get_object_or_404(Recipe,id=recipe_id)
+    if  request.user not in recipe.likes.all():
+        recipe.likes.add(request.user)
+    else:
+        recipe.likes.remove(request.user)
+
+
+    return JsonResponse({'likes_count' : recipe.number_of_likes(), 'liked' : request.user in recipe.likes.all()})
+
+
+        
+
 
 
 

@@ -38,10 +38,9 @@ urlpatterns = [
     path("add-comment/<int:recipe_id>/",views.add_comment,name="add_comment"),
     path("delete-comment/<int:comment_id>/",views.delete_comment,name="delete_comment"),
     path("add-category/",views.add_category,name="add_category"),
-    path("add-diet/",views.add_diet,name="add_diet")
+    path("add-diet/",views.add_diet,name="add_diet"),
+    path('like-recipe/<int:recipe_id>/',views.like_recipe,name="like_recipe")
 
-
-    
 
     
 

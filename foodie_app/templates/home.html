@@ -26,20 +26,20 @@
 
 
                 {% if  user.is_authenticated  and user.is_superuser %}
-               
-                    <li><a href="{% url 'add_category' %}">Add category </a></li>
-                    <li><a href="{% url 'add_diet' %}">Add diet </a></li>
-               
+
+                <li><a href="{% url 'add_category' %}">Add category </a></li>
+                <li><a href="{% url 'add_diet' %}">Add diet </a></li>
+
                 {% endif %}
 
 
                 {% if user.is_authenticated %}
-           
+
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 <li>User: {{ user.username }}</li>
                 {% endif %}
 
-               
+
 
 
             </ul>
@@ -120,7 +120,7 @@
                 <button type="submit" class="btn btn-primary offset-4 col-3"> Search</button>
             </form>
         </div>
-       
+
         <div class="recipe-list">
             {% for recipe in recipes %}
             <div class="recipe-card">
@@ -131,7 +131,21 @@
                 <p> <strong>Created at:</strong> {{ recipe.created_at|date:"Y-m-d H:i" }} </p>
                 <p> <strong>Updated at:</strong> {{ recipe.updated_at|date:"Y-m-d H:i" }} </p>
 
-                {% if  user.is_authenticated %} 
+                <form id="like-form-{{ recipe.id }}" class="like-form" action="{% url 'like_recipe' recipe.id %}"
+                    method="POST" style="display:inline">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-heart" id="like-btn-{{ recipe.id }}" data-recipe-id="{{ recipe.id }}">
+                        {% if  request.user in recipe.likes.all %}
+                        ❤️<strong><span id="like-count-{{ recipe.id }}">{{ recipe.number_of_likes }}</span></strong>
+                        {% else %}
+                        🤍<strong><span id="like-count-{{ recipe.id }}">{{ recipe.number_of_likes }}</span></strong>
+                        {% endif %}
+                    </button>
+                </form>
+
+                
+
+                {% if  user.is_authenticated %}
                 {% if user.is_superuser or user == recipe.author %}
                 <form action="{% url 'delete_recipe' recipe.id %}" method="POST" style="display:inline;">
                     {% csrf_token %}
@@ -162,7 +176,7 @@
 
 
                             {% if user.is_authenticated %}
-                             {% if  user == comment.author or user.is_superuser %}
+                            {% if  user == comment.author or user.is_superuser %}
                             <form action="{% url 'delete_comment' comment.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" class="delete-button">Delete</button>
@@ -241,6 +255,36 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.btn-heart').on('click', function () {
+                var recipeId = $(this).data('recipe-id');
+                var csrfToken = $("input[name='csrfmiddlewaretoken']").val();
+                var button = $(this);
+
+                $.ajax({
+                    url: "{% url 'like_recipe' 0 %}".replace("0", recipeId),
+                    type: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken': csrfToken
+                    },
+                    success: function (response) {
+                        $('#like-count-' + recipeId).text(response.likes_count);
+
+                        if (response.liked) {
+                            button.text(`❤️ ${response.likes_count}`);
+                        } else {
+                            button.text(`🤍 ${response.likes_count}`);
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while processing your request.");
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

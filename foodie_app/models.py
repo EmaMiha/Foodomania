@@ -24,6 +24,7 @@ class Recipe(models.Model):
     ingredients=models.TextField()
     categories=models.ManyToManyField(Category,related_name="recipes")
     image=models.ImageField(upload_to="recipes/images/",blank=True,null=True)
+    likes=models.ManyToManyField(User,related_name="liked_recipes",blank=True)
     
     def __str__(self):
         return self.title
@@ -32,6 +33,9 @@ class Recipe(models.Model):
         self.save()
     def delete_recipe(self):
         self.delete()
+        
+    def number_of_likes(self):
+        return self.likes.count()
         
     class Meta:
         ordering=['-created_at']
