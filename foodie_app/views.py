@@ -182,7 +182,12 @@ def like_recipe(request,recipe_id):
 
         
 
-
+def recipe_detail(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)  
+    ingredients_list=[ingredient.strip() for ingredient in recipe.ingredients.split('.')]
+    instructions_list=[instruction.strip() for instruction in recipe.instructions.split('.')]
+    
+    return render(request, 'recipe_detail.html', {'recipe': recipe,'ingredients_list':ingredients_list,'instructions_list':instructions_list})
 
 
 

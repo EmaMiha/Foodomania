@@ -22,6 +22,8 @@ class RecipeForm(forms.ModelForm):
         fields = ['title', 'instructions', 'ingredients', 'diet', 'categories','image']  
         diet = forms.ModelChoiceField(queryset=Diet.objects.all(), empty_label="Select Diet")
         categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.CheckboxSelectMultiple)
+        ingredients=forms.CharField(widget=forms.Textarea(attrs={'rows':5,'cols':40}))
+        instructions=forms.CharField(widget=forms.Textarea(attrs={'rows':5,'cols':40}))
 
 class CommentForm(forms.ModelForm):
     class Meta:

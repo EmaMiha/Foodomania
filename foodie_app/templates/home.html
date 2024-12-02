@@ -29,6 +29,7 @@
 
                 <li><a href="{% url 'add_category' %}">Add category </a></li>
                 <li><a href="{% url 'add_diet' %}">Add diet </a></li>
+                <li><a href="https://8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net/admin/">Admin Dashboard</a></li>
 
                 {% endif %}
 
@@ -121,13 +122,24 @@
             </form>
         </div>
 
+
+
         <div class="recipe-list">
             {% for recipe in recipes %}
             <div class="recipe-card">
                 <h4>{{ recipe.title }}</h4>
                 <p class="author">by {{ recipe.author.username }}</p>
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="recipe-image">
-                <p>{{ recipe.instructions }}</p>
+                {%if recipe.image %}
+                <a href="{% url 'recipe_detail' recipe.id %}">
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="recipe-image">
+                </a>             
+                {% else %}
+
+                <a href="{% url 'recipe_detail' recipe.id %}">
+                    <img src="/media/recipes/images/noimage.jpg" alt="noimage" class="recipe-image">
+                </a>  
+{% endif %}                <!-- <p>{{ recipe.instructions|slice:":100" }} {% if recipe.instructions|length > 100 %}... <a href="">Read more</a>{% endif %}</p>
+                <p> {{ recipe.ingredients }}</p> -->
                 <p> <strong>Created at:</strong> {{ recipe.created_at|date:"Y-m-d H:i" }} </p>
                 <p> <strong>Updated at:</strong> {{ recipe.updated_at|date:"Y-m-d H:i" }} </p>
 

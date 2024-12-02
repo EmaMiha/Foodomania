@@ -4,11 +4,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
 }
 
 .container {
+    margin-top:50px;
     background-color: white;
     padding: 30px;
     border-radius: 8px;
@@ -23,6 +23,7 @@ h2 {
 }
 
 form {
+    padding: 50px;
     display: flex;
     flex-direction: column;
 }
