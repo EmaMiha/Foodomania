@@ -6,8 +6,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomAuthenticationForm,CategoryForm,DietForm
-from .models import Recipe,Comment,Category,Diet
-from .forms import RecipeForm 
+from .models import Recipe,Comment,Category,Diet,Ingredient
+from .forms import RecipeForm
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import user_passes_test
@@ -112,14 +112,18 @@ def home(request):
 def add_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST,request.FILES)
+        ingredients = request.POST.getlist('ingredients[]')
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
-            form.save()  # Save the new recipe to the database
-            
-            return redirect('home')  # Redirect to the home page after saving
+            recipe.save() 
+            for ingredient_name in ingredients:
+                if ingredient_name.strip():  
+                    Ingredient.objects.create(recipe=recipe, name=ingredient_name.strip())           
+            return redirect('home')  #
     else:
         form = RecipeForm()
+        
     return render(request, 'add_recipe.html', {'form': form})
 
 def delete_recipe(request,recipe_id):
@@ -184,10 +188,10 @@ def like_recipe(request,recipe_id):
 
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)  
-    ingredients_list=[ingredient.strip() for ingredient in recipe.ingredients.split('.')]
+    ingredients_list=recipe.ingredients.all() 
     instructions_list=[instruction.strip() for instruction in recipe.instructions.split('.')]
     
-    return render(request, 'recipe_detail.html', {'recipe': recipe,'ingredients_list':ingredients_list,'instructions_list':instructions_list})
+    return render(request, 'recipe_detail.html', {'recipe': recipe,'ingredients':ingredients_list,'instructions_list':instructions_list})
 
 
 

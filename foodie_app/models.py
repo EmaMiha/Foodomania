@@ -21,11 +21,10 @@ class Recipe(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     instructions=models.TextField()
-    ingredients=models.TextField()
     categories=models.ManyToManyField(Category,related_name="recipes")
     image=models.ImageField(upload_to="recipes/images/",blank=True,null=True)
     likes=models.ManyToManyField(User,related_name="liked_recipes",blank=True)
-    
+        
     def __str__(self):
         return self.title
     def edit_instructions(self,new_instructions):
@@ -39,6 +38,15 @@ class Recipe(models.Model):
         
     class Meta:
         ordering=['-created_at']
+
+class Ingredient(models.Model):
+    recipe=models.ForeignKey(Recipe,related_name="ingredients",on_delete=models.CASCADE)
+    name=models.CharField(max_length=500)
+    
+    def __str__(self):
+        return f"{self.name})"
+    
+
 
 class Comment(models.Model):
     recipe=models.ForeignKey(Recipe,on_delete=models.CASCADE,related_name="comments")

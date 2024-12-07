@@ -1,8 +1,9 @@
 # forms.py
 from django import forms
+from django.forms import inlineformset_factory
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Recipe,Diet,Category,Comment
+from .models import Recipe,Diet,Category,Comment,Ingredient
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -19,11 +20,14 @@ class CustomAuthenticationForm(AuthenticationForm):
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['title', 'instructions', 'ingredients', 'diet', 'categories','image']  
+        fields = ['title', 'instructions', 'diet', 'categories','image']  
         diet = forms.ModelChoiceField(queryset=Diet.objects.all(), empty_label="Select Diet")
         categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.CheckboxSelectMultiple)
-        ingredients=forms.CharField(widget=forms.Textarea(attrs={'rows':5,'cols':40}))
         instructions=forms.CharField(widget=forms.Textarea(attrs={'rows':5,'cols':40}))
+
+
+        
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -41,3 +45,4 @@ class DietForm(forms.ModelForm):
     class Meta:
         model=Diet
         fields=['name','description']
+

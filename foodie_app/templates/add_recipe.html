@@ -25,6 +25,10 @@
         <form method="post" enctype="multipart/form-data" id="addRecipe">
             {% csrf_token %}
             {{ form.as_p }}
+            <label>Ingredients:</label>
+            <div id="ingredients-container">
+                <input type="text" name="ingredients[]" class="ingredient-input" placeholder="Enter an ingredient" required>
+            </div>
 
             <!-- Display error messages for each field -->
             {% for field in form %}
@@ -41,6 +45,25 @@
             <p><a href="{% url 'home' %}">Back to Home</a></p>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('ingredients-container');
+    
+            container.addEventListener('keydown', (event) => {
+                if (event.target.classList.contains('ingredient-input') && event.key === 'Enter') {
+                    event.preventDefault();
+                    const newInput = document.createElement('input');
+                    newInput.type = 'text';
+                    newInput.name = 'ingredients[]';
+                    newInput.className = 'ingredient-input';
+                    newInput.placeholder = 'Enter an ingredient';
+                    container.appendChild(newInput);
+                    newInput.focus();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
