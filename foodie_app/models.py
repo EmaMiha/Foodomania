@@ -20,16 +20,13 @@ class Recipe(models.Model):
     author=models.ForeignKey(User, on_delete=models.CASCADE)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
-    instructions=models.TextField()
     categories=models.ManyToManyField(Category,related_name="recipes")
     image=models.ImageField(upload_to="recipes/images/",blank=True,null=True)
     likes=models.ManyToManyField(User,related_name="liked_recipes",blank=True)
         
     def __str__(self):
         return self.title
-    def edit_instructions(self,new_instructions):
-        self.instructions=new_instructions
-        self.save()
+    
     def delete_recipe(self):
         self.delete()
         
@@ -46,7 +43,13 @@ class Ingredient(models.Model):
     def __str__(self):
         return f"{self.name})"
     
-
+class Instructions(models.Model):
+    recipe=models.ForeignKey(Recipe,related_name="instructions",on_delete=models.CASCADE)
+    step_number=models.PositiveIntegerField()
+    description=models.TextField()
+    
+    def __str__(self):
+        return f"Step {self.step_number}: {self.description}"
 
 class Comment(models.Model):
     recipe=models.ForeignKey(Recipe,on_delete=models.CASCADE,related_name="comments")

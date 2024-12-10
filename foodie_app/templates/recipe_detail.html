@@ -40,8 +40,8 @@
         {% endif %}
 
         <p><strong>Instructions:</strong></p>
-        {% for line in instructions_list %}
-        <li>{{ forloop.counter }}. {{ line }}</li>
+        {% for line in instructions %}
+        <p>{{ line.step_number  }}. {{ line.description }}</p>
         {% endfor %}
 
         <h3>Ingredients</h3>

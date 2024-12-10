@@ -1,35 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Recipe</title>
+    <title>Update Recipe</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/add_recipes.css' %}"> <!-- Adjust the path as needed -->
     <style>
-
-.errorlist {
-    color: red;  /* Change text color to red for errors */
-    margin: 5px 0;
-    padding: 0;
-    list-style-type: none;  /* Remove bullet points */
-}
-
-        </style>
+        .errorlist {
+            color: red;
+            /* Change text color to red for errors */
+            margin: 5px 0;
+            padding: 0;
+            list-style-type: none;
+            /* Remove bullet points */
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <h2>Update Recipe</h2>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
+            <h3>Current image</h3>
+            {% if recipe.image %}
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 300px; max-height: 300px;" />
+            {% endif %}
+<h3>Update image</h3>
+{{ form.image }}
+
+            <h3>Ingredients</h3>
+            <div id="ingredient-inputs">
+                {% for ingredient in ingredients %}
+                <div class="ingredient-item">
+
+                    <input type="text" name="ingredients[]" value="{{ ingredient.name  }}" required>
+                    <button type="button" class="btn btn-danger remove-ingredient">Delete</button>
+
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-ingredient-btn" class="btn-warning">Add ingredient</button>
+
+
+            <h3>Instructions</h3>
+            <div id="instruction-inputs">
+                {% for instruction in instructions %}
+                <div class="instruction-item">
+
+                    <input type="text" name="instructions[]" value="{{ instruction.description  }}" required>
+                    <button type="button" class="btn btn-danger remove-instruction">Delete</button>
+
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-instruction-btn" class="btn-warning">Add instructions</button>
+
+
 
             {% for field in form %}
-                {% for error in field.errors %}
-                    <ul class="errorlist">
-                        <li>{{ error }}</li>
-                    </ul>
-                {% endfor %}
+            {% for error in field.errors %}
+            <ul class="errorlist">
+                <li>{{ error }}</li>
+            </ul>
+            {% endfor %}
             {% endfor %}
 
             <button type="submit">Update Recipe</button>
@@ -38,5 +75,9 @@
             <p><a href="{% url 'home' %}">Back to Home</a></p>
         </div>
     </div>
+
+    <script src="{% static 'js/update.js' %}"></script>
+
 </body>
+
 </html>

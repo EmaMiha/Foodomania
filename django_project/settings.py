@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.parse("postgres://ema2:EMAMIHA1412@ep-gentle-mountain-a23bxz6h-pooler.eu-central-1.aws.neon.tech/emamiha2")
+    'default': dj_database_url.parse("postgres://ema2:EMAMIHA1412@ep-aged-sea-a2hu07ki.eu-central-1.aws.neon.tech/emamiha2")
 }
 
 

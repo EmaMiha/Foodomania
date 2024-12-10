@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomAuthenticationForm,CategoryForm,DietForm
-from .models import Recipe,Comment,Category,Diet,Ingredient
+from .models import Recipe,Comment,Category,Diet,Ingredient,Instructions
 from .forms import RecipeForm
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
@@ -113,13 +113,17 @@ def add_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST,request.FILES)
         ingredients = request.POST.getlist('ingredients[]')
+        instructions = request.POST.getlist('instructions[]')
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
             recipe.save() 
             for ingredient_name in ingredients:
                 if ingredient_name.strip():  
-                    Ingredient.objects.create(recipe=recipe, name=ingredient_name.strip())           
+                    Ingredient.objects.create(recipe=recipe, name=ingredient_name.strip())     
+            for index,inst in enumerate(instructions,start=1):
+                if inst.strip():  
+                    Instructions.objects.create(recipe=recipe,step_number=index, description=inst)         
             return redirect('home')  #
     else:
         form = RecipeForm()
@@ -135,15 +139,35 @@ def delete_recipe(request,recipe_id):
 
 def update_recipe(request, recipe_id):
     recipe=get_object_or_404(Recipe,id=recipe_id,author=request.user)
+    ingredients=recipe.ingredients.all()
+    instructions=recipe.instructions.all()
+    
+
+    
     if request.method=='POST':
-        form=RecipeForm(request.POST,instance=recipe)
+        form=RecipeForm(request.POST,request.FILES,instance=recipe)
+        new_ingredients=request.POST.getlist('ingredients[]')
+        new_instructions=request.POST.getlist('instructions[]')
+        
         if form.is_valid():
-            form.save()
-        return redirect('home')
+            recipe=form.save(commit=False)
+            recipe.author=request.user
+            recipe.save()
+            
+            Ingredient.objects.filter(recipe=recipe).delete()
+            for item in new_ingredients:
+                Ingredient.objects.create(recipe=recipe,name=item.strip())
+            
+            Instructions.objects.filter(recipe=recipe).delete()
+            for index, step in enumerate(new_instructions,start=1):
+                Instructions.objects.create(recipe=recipe,step_number=index,description=step)
+            
+            
+        return redirect('recipe_detail',recipe_id=recipe.id)
     else:
         form=RecipeForm(instance=recipe)
     
-    return render(request,"update_recipe.html",{'form':form,'recipe':recipe})
+    return render(request,"update_recipe.html",{'form':form,'recipe':recipe,'ingredients':ingredients,'instructions':instructions})
 
 
 def add_comment(request,recipe_id):
@@ -188,10 +212,10 @@ def like_recipe(request,recipe_id):
 
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)  
-    ingredients_list=recipe.ingredients.all() 
-    instructions_list=[instruction.strip() for instruction in recipe.instructions.split('.')]
+    ingredients_list=recipe.ingredients.all()
+    instructions_list=recipe.instructions.all() 
     
-    return render(request, 'recipe_detail.html', {'recipe': recipe,'ingredients':ingredients_list,'instructions_list':instructions_list})
+    return render(request, 'recipe_detail.html', {'recipe': recipe,'ingredients':ingredients_list,'instructions':instructions_list})
 
 
 

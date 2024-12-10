@@ -20,10 +20,9 @@ class CustomAuthenticationForm(AuthenticationForm):
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['title', 'instructions', 'diet', 'categories','image']  
+        fields = ['title', 'diet', 'categories','image']  
         diet = forms.ModelChoiceField(queryset=Diet.objects.all(), empty_label="Select Diet")
         categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.CheckboxSelectMultiple)
-        instructions=forms.CharField(widget=forms.Textarea(attrs={'rows':5,'cols':40}))
 
 
         
