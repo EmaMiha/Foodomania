@@ -18,11 +18,13 @@ class CustomAuthenticationForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput)
 
 class RecipeForm(forms.ModelForm):
-    class Meta:
-        model = Recipe
-        fields = ['title', 'diet', 'categories','image']  
-        diet = forms.ModelChoiceField(queryset=Diet.objects.all(), empty_label="Select Diet")
-        categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.CheckboxSelectMultiple)
+    
+        diet = forms.ModelChoiceField(queryset=Diet.objects.all(), empty_label="Select Diet",required=True)
+        categories = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label="Select Category",required=True)
+        class Meta:
+            model = Recipe
+            fields = ['title', 'diet', 'categories','image']  
+
 
 
         

@@ -4,28 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/recipe_detail.css' %}">
+
     <title>{{ recipe.title }}</title>
-    <style>
-         ul.ingredients-list {
-            list-style-type: none;  
-            padding-left: 0;
-        }
-
-        ul.ingredients-list li {
-            position: relative;
-            padding-left: 20px; 
-            margin-bottom: 5px;  
-        }
-
-        ul.ingredients-list li:before {
-            content: '\2022';  
-            font-size: 20px;  
-            color: #007bff;  
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-    </style>
+    <link rel="shortcut icon" href="/media/recipes/images/recipe_12300151.png" type="image/x-icon">
 </head>
 
 <body>
@@ -43,6 +26,23 @@
         {% for line in instructions %}
         <p>{{ line.step_number  }}. {{ line.description }}</p>
         {% endfor %}
+
+        <p><strong>Diet:</strong> 
+            {% if recipe.diet %}
+                {{ recipe.diet.name }}
+            {% else %}
+                No diet selected
+            {% endif %}
+        </p>
+
+        <p><strong>Category:</strong>
+            {% if recipe.categories %}
+                {{ recipe.categories.name }}
+            {% else %}
+                No category selected
+            {% endif %}
+        </p>
+
 
         <h3>Ingredients</h3>
         <ul class="ingredients-list">

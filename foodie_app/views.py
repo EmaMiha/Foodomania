@@ -118,6 +118,7 @@ def add_recipe(request):
             recipe = form.save(commit=False)
             recipe.author = request.user
             recipe.save() 
+            
             for ingredient_name in ingredients:
                 if ingredient_name.strip():  
                     Ingredient.objects.create(recipe=recipe, name=ingredient_name.strip())     

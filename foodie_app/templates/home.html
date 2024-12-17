@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="shortcut icon" href="/media/recipes/images/recipe_12300151.png" type="image/x-icon">
 </head>
 
 <body>
@@ -29,7 +30,8 @@
 
                 <li><a href="{% url 'add_category' %}">Add category </a></li>
                 <li><a href="{% url 'add_diet' %}">Add diet </a></li>
-                <li><a href="https://8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net/admin/">Admin Dashboard</a></li>
+                <li><a href="https://8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net/admin/">Admin
+                        Dashboard</a></li>
 
                 {% endif %}
 
@@ -132,21 +134,21 @@
                 {%if recipe.image %}
                 <a href="{% url 'recipe_detail' recipe.id %}">
                     <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="recipe-image">
-                </a>             
+                </a>
                 {% else %}
 
                 <a href="{% url 'recipe_detail' recipe.id %}">
                     <img src="/media/recipes/images/noimage.jpg" alt="noimage" class="recipe-image">
-                </a>  
-{% endif %}                <!-- <p>{{ recipe.instructions|slice:":100" }} {% if recipe.instructions|length > 100 %}... <a href="">Read more</a>{% endif %}</p>
-                <p> {{ recipe.ingredients }}</p> -->
+                </a>
+                {% endif %}
                 <p> <strong>Created at:</strong> {{ recipe.created_at|date:"Y-m-d H:i" }} </p>
                 <p> <strong>Updated at:</strong> {{ recipe.updated_at|date:"Y-m-d H:i" }} </p>
 
                 <form id="like-form-{{ recipe.id }}" class="like-form" action="{% url 'like_recipe' recipe.id %}"
                     method="POST" style="display:inline">
                     {% csrf_token %}
-                    <button type="button" class="btn btn-heart" id="like-btn-{{ recipe.id }}" data-recipe-id="{{ recipe.id }}">
+                    <button type="button" class="btn btn-heart" id="like-btn-{{ recipe.id }}"
+                        data-recipe-id="{{ recipe.id }}">
                         {% if  request.user in recipe.likes.all %}
                         ❤️<strong><span id="like-count-{{ recipe.id }}">{{ recipe.number_of_likes }}</span></strong>
                         {% else %}
@@ -155,13 +157,13 @@
                     </button>
                 </form>
 
-                
+
 
                 {% if  user.is_authenticated %}
                 {% if user.is_superuser or user == recipe.author %}
                 <form action="{% url 'delete_recipe' recipe.id %}" method="POST" style="display:inline;">
                     {% csrf_token %}
-                    <button type="submit" class="delete-button">Delete</button>
+                    <button type="submit" class="delete-button btn-danger">Delete</button>
                 </form>
                 {% endif %}
                 {% if user == recipe.author %}
@@ -177,9 +179,10 @@
                         <button type="submit" class="comment-button">Comment</button>
                     </form>
                     {% endif %}
-                    <div class="allcomm">
+                    <h5 class="comment-count">All Comments {{ recipe.comments.count }}</h5>
+                    <div class="allcomm hide" >
 
-                        <h5>All Comments {{ recipe.comments.count }}</h5>
+                       
                         {% for comment in recipe.comments.all %}
                         <div class="comment">
                             <p><strong>{{ comment.author.username}} : </strong> {{ comment.content}}</p>
@@ -265,12 +268,37 @@
 
 
     </footer>
+
+
+    <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="commentModalLabel">Comments</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+
+
+            $('.comment-count').on('click', function () {
+                var commentsHtml = $(this).closest('.comments-section').find('.allcomm').html();
+                $('#commentModal .modal-body').html(commentsHtml);
+                var myModal = new bootstrap.Modal(document.getElementById('commentModal'), {});
+                myModal.show();
+            });
+
+
             $('.btn-heart').on('click', function () {
                 var recipeId = $(this).data('recipe-id');
                 var csrfToken = $("input[name='csrfmiddlewaretoken']").val();
