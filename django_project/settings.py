@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-dzj)%do0k%vi-(2w5y^w!o-qp)vd6ve^29pg2#qb*zwgq&e8ag
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net','.herokuapp.com','127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net', '.herokuapp.com', '127.0.0.1','ep-aged-sea-a2hu07ki.eu-central-1.aws.neon.tech' 'localhost']
 
 # settings.py
 
@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.parse("postgres://ema2:EMAMIHA1412@ep-aged-sea-a2hu07ki.eu-central-1.aws.neon.tech/emamiha2")
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 
@@ -148,5 +148,5 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/home/'
 
 
-MEDIA_URL='/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
