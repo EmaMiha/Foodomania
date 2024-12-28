@@ -1,6 +1,6 @@
 body {
 
-font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
@@ -38,7 +38,7 @@ font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 10px;
 }
 
-.recipe-detail-container a{
+.recipe-detail-container a {
 
     color: #007bff;
     text-decoration: none;
@@ -46,12 +46,12 @@ font-family: Arial, Helvetica, sans-serif;
 }
 
 
-.recipe-detail-container a:hover{
+.recipe-detail-container a:hover {
     text-decoration: underline;
 }
 
 
-.recipe-detail-container .recipe-image{
+.recipe-detail-container .recipe-image {
 
 
     display: block;
@@ -89,7 +89,7 @@ ul.ingredients-list li:before {
 
 .recipe-detail-container h3 {
 
-    color:#555;
+    color: #555;
     margin-bottom: 15px;
     margin-top: 40px;
     text-align: center;
@@ -107,6 +107,6 @@ ul.ingredients-list li:before {
 }
 
 
-.recipe-detail-container p{
+.recipe-detail-container p {
     margin-bottom: 5px;
 }

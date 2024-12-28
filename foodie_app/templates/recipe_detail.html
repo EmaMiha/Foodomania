@@ -27,19 +27,19 @@
         <p>{{ line.step_number  }}. {{ line.description }}</p>
         {% endfor %}
 
-        <p><strong>Diet:</strong> 
+        <p><strong>Diet:</strong>
             {% if recipe.diet %}
-                {{ recipe.diet.name }}
+            {{ recipe.diet.name }}
             {% else %}
-                No diet selected
+            No diet selected
             {% endif %}
         </p>
 
         <p><strong>Category:</strong>
             {% if recipe.categories %}
-                {{ recipe.categories.name }}
+            {{ recipe.categories.name }}
             {% else %}
-                No category selected
+            No category selected
             {% endif %}
         </p>
 
@@ -47,9 +47,9 @@
         <h3>Ingredients</h3>
         <ul class="ingredients-list">
             {% for ingredient in ingredients %}
-                <li>{{ ingredient.name }}</li>
+            <li>{{ ingredient.name }}</li>
             {% empty %}
-                <li>No ingredients found</li>
+            <li>No ingredients found</li>
             {% endfor %}
         </ul>
         <p><strong>Created at:</strong> {{ recipe.created_at|date:"Y-m-d H:i" }}</p>

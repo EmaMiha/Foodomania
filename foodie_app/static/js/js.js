@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(newInput);
             newInput.focus();
         }
-    });   
-    
+    });
+
     container2.addEventListener('keydown', (event) => {
         if (event.target.classList.contains('instruction-input') && event.key === 'Enter') {
             event.preventDefault();

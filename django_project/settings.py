@@ -24,12 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dzj)%do0k%vi-(2w5y^w!o-qp)vd6ve^29pg2#qb*zwgq&e8ag'
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net', '.herokuapp.com', '127.0.0.1','ep-aged-sea-a2hu07ki.eu-central-1.aws.neon.tech' 'localhost']
+ALLOWED_HOSTS = ['8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net',
+                 '.herokuapp.com', '127.0.0.1', 'ep-aged-sea-a2hu07ki.eu-central-1.aws.neon.tech' 'localhost']
 
 # settings.py
 
@@ -92,13 +94,9 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # }
 
 
-
-
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-
-
 
 
 # Password validation

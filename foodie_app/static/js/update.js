@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         newInput.innerHTML = `<input type="text" name="instructions[]" class="instruction-input" placeholder="Enter an instruction" required>
                          <button type="button" class="btn btn-danger remove-instruction">Delete</button>`;
         instructionDiv.appendChild(newInput);
-     
+
 
     })
 
