@@ -181,7 +181,7 @@ footer p {
 }
 
 
-.comment-count{
+.comment-count {
     cursor: pointer;
     text-shadow: 1px 1px gray;
 }
@@ -199,6 +199,7 @@ footer p {
 .hide {
     display: none;
 }
+
 .comment p {
     margin-top: 5px 0;
 }
@@ -275,6 +276,14 @@ header {
 
 }
 
+.nav-link {
+    color: blue !important;
+}
+
+.nav-link:hover {
+    color: darkblue !important;
+}
+
 .nav-links li {
     padding: 10px;
 }
@@ -286,6 +295,11 @@ header {
     text-decoration: none;
 }
 
+.navbar-brand {
+    text-shadow: 2px 2px 2px green;
+    font-weight: bold;
+    font-size: 2rem;
+}
 
 
 .nav-links a:hover {
@@ -321,3 +335,4 @@ footer p {
     display: flex;
     flex-direction: column;
 }
+

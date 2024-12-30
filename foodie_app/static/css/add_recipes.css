@@ -8,12 +8,13 @@ body {
 }
 
 .container {
-    margin-top:50px;
+    margin-top: 50px;
     background-color: white;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    width: 400px; /* Adjust the width as needed */
+    width: 400px;
+    /* Adjust the width as needed */
 }
 
 h2 {
@@ -43,7 +44,8 @@ input[type="text"]:focus,
 input[type="textarea"]:focus,
 input[type="email"]:focus,
 select:focus {
-    border-color: #66afe9; /* Highlight color on focus */
+    border-color: #66afe9;
+    /* Highlight color on focus */
     outline: none;
 }
 
@@ -59,14 +61,17 @@ button {
 }
 
 button:hover {
-    background-color: #4cae4c; /* Darker green on hover */
+    background-color: #4cae4c;
+    /* Darker green on hover */
 }
 
 .errorlist {
-    color: red;  /* Error message color */
+    color: red;
+    /* Error message color */
     margin: 5px 0;
     padding: 0;
-    list-style-type: none;  /* Remove bullet points */
+    list-style-type: none;
+    /* Remove bullet points */
 }
 
 .footer {
@@ -91,6 +96,6 @@ button:hover {
 
 }
 
-.upd{
-    margin:30px
+.upd {
+    margin: 30px
 }

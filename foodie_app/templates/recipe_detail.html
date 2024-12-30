@@ -22,11 +22,6 @@
         <p>No image available for this recipe.</p>
         {% endif %}
 
-        <p><strong>Instructions:</strong></p>
-        {% for line in instructions %}
-        <p>{{ line.step_number  }}. {{ line.description }}</p>
-        {% endfor %}
-
         <p><strong>Diet:</strong>
             {% if recipe.diet %}
             {{ recipe.diet.name }}
@@ -43,8 +38,7 @@
             {% endif %}
         </p>
 
-
-        <h3>Ingredients</h3>
+        <h3><strong>Ingredients</strong></h3>
         <ul class="ingredients-list">
             {% for ingredient in ingredients %}
             <li>{{ ingredient.name }}</li>
@@ -52,6 +46,13 @@
             <li>No ingredients found</li>
             {% endfor %}
         </ul>
+
+        <h3><strong>Instructions</strong></h3>
+        {% for line in instructions %}
+        <p>{{ line.step_number  }}. {{ line.description }}</p>
+        {% endfor %}
+
+
         <p><strong>Created at:</strong> {{ recipe.created_at|date:"Y-m-d H:i" }}</p>
         <p><strong>Updated at:</strong> {{ recipe.updated_at|date:"Y-m-d H:i" }}</p>
 

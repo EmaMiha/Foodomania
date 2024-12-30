@@ -110,3 +110,8 @@ ul.ingredients-list li:before {
 .recipe-detail-container p {
     margin-bottom: 5px;
 }
+
+h3 {
+
+    font-weight: bold;
+}

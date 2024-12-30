@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ingredientDiv.appendChild(newInput);
 
 
-    })
+    });
 
     ingredientDiv.addEventListener("click", function (e) {
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             e.target.parentElement.remove();
         }
 
-    })
+    });
 
 
 
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         instructionDiv.appendChild(newInput);
 
 
-    })
+    });
 
     instructionDiv.addEventListener("click", function (e) {
 
@@ -50,10 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
             e.target.parentElement.remove();
         }
 
-    })
+    });
 
 
 
-
-
-})
+});
