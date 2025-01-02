@@ -236,3 +236,5 @@ def recipe_detail(request, recipe_id):
                       'recipe': recipe,
                       'ingredients': ingredients_list,
                       'instructions': instructions_list})
+def about(request):
+    return render(request, 'about.html')

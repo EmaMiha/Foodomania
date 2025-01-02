@@ -48,6 +48,7 @@ urlpatterns = [
     path('like-recipe/<int:recipe_id>/', views.like_recipe,
          name="like_recipe"),
     path('recipe/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
+    path('about/', views.about, name='about'),
 ]
 
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
