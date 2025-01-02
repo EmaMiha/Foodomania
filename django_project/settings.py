@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
 import dj_database_url
 if os.path.isfile('env.py'):
     import env
@@ -153,3 +152,6 @@ LOGIN_REDIRECT_URL = '/home/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+import django_heroku
+django_heroku.settings(locals())
