@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net',
                  '.herokuapp.com', '127.0.0.1', 'ep-aged-sea-a2hu07ki.eu-central-1.aws.neon.tech' 'localhost']
