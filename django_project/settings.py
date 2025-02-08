@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = False
 
 ALLOWED_HOSTS = ['8000-emamiha-foodomania-65sbhscpd8e.ws.codeinstitute-ide.net',
-                 '.herokuapp.com', '127.0.0.1', 'ep-aged-sea-a2hu07ki.eu-central-1.aws.neon.tech' 'localhost']
+                 '.herokuapp.com', '127.0.0.1', 'ep-aged-sea-a2hu07ki.eu-central-1.aws.neon.tech', 'localhost']
 
 # settings.py
 
