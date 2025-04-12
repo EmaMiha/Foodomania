@@ -324,45 +324,7 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-
-
-            $('.comment-count').on('click', function () {
-                var commentsHtml = $(this).closest('.comments-section').find('.allcomm').html();
-                $('#commentModal .modal-body').html(commentsHtml);
-                var myModal = new bootstrap.Modal(document.getElementById('commentModal'), {});
-                myModal.show();
-            });
-
-
-            $('.btn-heart').on('click', function () {
-                var recipeId = $(this).data('recipe-id');
-                var csrfToken = $("input[name='csrfmiddlewaretoken']").val();
-                var button = $(this);
-
-                $.ajax({
-                    url: "{% url 'like_recipe' 0 %}".replace("0", recipeId),
-                    type: 'POST',
-                    data: {
-                        'csrfmiddlewaretoken': csrfToken
-                    },
-                    success: function (response) {
-                        $('#like-count-' + recipeId).text(response.likes_count);
-
-                        if (response.liked) {
-                            button.text(`❤️ ${response.likes_count}`);
-                        } else {
-                            button.text(`🤍 ${response.likes_count}`);
-                        }
-                    },
-                    error: function () {
-                        alert("An error occurred while processing your request.");
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="{% static 'js/home.js' %}"></script>
 </body>
 
 </html>
