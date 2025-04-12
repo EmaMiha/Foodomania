@@ -21,8 +21,8 @@
 from django.urls import path
 from . import views  # Import views
 from django.contrib.auth.views import LogoutView  # Import the LogoutView
-from django.conf.urls.static import static
-from django.conf import settings
+# from django.conf.urls.static import static
+# from django.conf import settings
 
 
 urlpatterns = [
