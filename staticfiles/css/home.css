@@ -9,6 +9,13 @@ ul {
     list-style-type: none;
 }
 
+.main-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+
 .container {
     width: 90%;
     max-width: 900px;
@@ -32,9 +39,10 @@ h3 {
 }
 
 .recipe-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
 }
 
 .recipe-card {

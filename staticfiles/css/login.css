@@ -1,4 +1,4 @@
-/* login.css */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -61,3 +61,37 @@ button:hover {
 .footer a:hover {
     text-decoration: underline;
 }
+body {
+    background: #f8f9fa;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-card {
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .toast {
+    opacity: 1;
+  }
+
+  .form-control {
+    border-radius: 8px;
+  }
+
+  .btn-success {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .register-link {
+    text-align: center;
+    margin-top: 15px;
+  }

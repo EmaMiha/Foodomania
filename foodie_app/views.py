@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
@@ -55,11 +55,15 @@ def login_view(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(username=username, password=password)
+            
             if user is not None:
                 login(request, user)
+                messages.success(request, f'Welcome back, {user.username}! 🎉')
                 return redirect('home')
             else:
                 messages.error(request, 'Invalid username or password.')
+        else:
+            messages.error(request, 'Invalid credentials. Please try again.')
     else:
         form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
@@ -71,45 +75,51 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Registration successful.')
-            return redirect('login')
+            return redirect('home')
         else:
             print(form.errors)
+            messages.error(request, 'Invalid data')
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
 
 
 def home(request):
-    search_query = request.GET.get('search',  '')
-    recipes = Recipe.objects.filter(title__icontains=search_query)
-    selected_diets = request.GET.getlist('diets')
-    selected_categories = request.GET.getlist('categories')
+    try:
+        search_query = request.GET.get('search',  '')
+        recipes = Recipe.objects.filter(title__icontains=search_query)
+        selected_diets = request.GET.getlist('diets')
+        selected_categories = request.GET.getlist('categories')
 
-    if selected_diets:
-        recipes = recipes.filter(diet__id__in=selected_diets).distinct()
+        if selected_diets:
+            recipes = recipes.filter(diet__id__in=selected_diets).distinct()
 
-    if selected_categories:
-        recipes = recipes.filter(
-            categories__id__in=selected_categories).distinct()
+        if selected_categories:
+            recipes = recipes.filter(
+                categories__id__in=selected_categories).distinct()
 
-    paginator = Paginator(recipes, 6)
+        paginator = Paginator(recipes, 6)
+        page_number = request.GET.get('page')
+        recipess = paginator.get_page(page_number)
 
-    page_number = request.GET.get('page')
-    recipess = paginator.get_page(page_number)
+        diets = Diet.objects.all()
+        categories = Category.objects.all()
 
-    diets = Diet.objects.all()
-    categories = Category.objects.all()
-
-    return render(
-        request,
-        'home.html',
-        {
-            'recipes': recipess,
-            'search_query': search_query,
-            'diets': diets,
-            'categories': categories,
-            'selected_categories': selected_categories,
-            'selected_diets': selected_diets})
+        return render(
+            request,
+            'home.html',
+            {
+                'recipes': recipess,
+                'search_query': search_query,
+                'diets': diets,
+                'categories': categories,
+                'selected_categories': selected_categories,
+                'selected_diets': selected_diets})
+    except Exception as e:
+        import traceback
+        print("❌ ERROR in home view:", e)
+        traceback.print_exc()
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 def add_recipe(request):
@@ -237,3 +247,9 @@ def recipe_detail(request, recipe_id):
 
 def about(request):
     return render(request, 'about.html')
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "You have been successfully logged out. See you again!")
+    return redirect('home')

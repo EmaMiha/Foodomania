@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.forms",
+    'widget_tweaks',
     'foodie_app',
 ]
 
@@ -161,3 +163,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # import django_heroku
 # django_heroku.settings(locals())
+
+GGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
