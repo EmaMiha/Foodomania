@@ -1,7 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth.views import LogoutView
-from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -60,7 +57,6 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                # Redirect to a home page or any other page
                 return redirect('home')
             else:
                 messages.error(request, 'Invalid username or password.')
@@ -74,12 +70,8 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            # login(request, user)
             messages.success(request, 'Registration successful.')
-            return redirect('login')  # Redirect to a login
+            return redirect('login')
         else:
             print(form.errors)
     else:
@@ -138,7 +130,12 @@ def add_recipe(request):
                 if inst.strip():
                     Instructions.objects.create(
                         recipe=recipe, step_number=index, description=inst)
-            return redirect('home')  #
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'success': True, 'message': 'Recipe successfully added!'})
+            return redirect('home')
+        else:
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'success': False, 'message': 'Failed to add recipe. Check the form.'})
     else:
         form = RecipeForm()
 
@@ -236,5 +233,7 @@ def recipe_detail(request, recipe_id):
                       'recipe': recipe,
                       'ingredients': ingredients_list,
                       'instructions': instructions_list})
+
+
 def about(request):
     return render(request, 'about.html')
