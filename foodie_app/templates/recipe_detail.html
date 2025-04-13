@@ -1,66 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/recipe_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/recipe_detail.css' %}" />
 
     <title>{{ recipe.title }}</title>
-    <link rel="shortcut icon" href="/media/recipes/images/recipe_12300151.png" type="image/x-icon">
-</head>
+    <link
+      rel="shortcut icon"
+      href="/media/recipes/images/recipe_12300151.png"
+      type="image/x-icon"
+    />
+  </head>
 
-<body>
+  <body>
     <div class="recipe-detail-container">
-        <h1>{{ recipe.title }}</h1>
-        <p><strong>Author:</strong> {{ recipe.author.username }}</p>
+      <h1>{{ recipe.title }}</h1>
+      <p><strong>Author:</strong> {{ recipe.author.username }}</p>
 
-        {% if recipe.image %}
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="recipe-image">
-        {% else %}
-        <p>No image available for this recipe.</p>
+      {% if recipe.image %}
+      <img
+        src="{{ recipe.image.url }}"
+        alt="{{ recipe.title }}"
+        class="recipe-image"
+      />
+      {% else %}
+      <p>No image available for this recipe.</p>
+      {% endif %}
+
+      <p>
+        <strong>Diet:</strong>
+        {% if recipe.diet %} {{ recipe.diet.name }} {% else %} No diet selected
         {% endif %}
+      </p>
 
-        <p><strong>Diet:</strong>
-            {% if recipe.diet %}
-            {{ recipe.diet.name }}
-            {% else %}
-            No diet selected
-            {% endif %}
-        </p>
+      <p>
+        <strong>Category:</strong>
+        {% if recipe.categories %} {{ recipe.categories.name }} {% else %} No
+        category selected {% endif %}
+      </p>
 
-        <p><strong>Category:</strong>
-            {% if recipe.categories %}
-            {{ recipe.categories.name }}
-            {% else %}
-            No category selected
-            {% endif %}
-        </p>
-
-        <h3><strong>Ingredients</strong></h3>
-        <ul class="ingredients-list">
-            {% for ingredient in ingredients %}
-            <li>{{ ingredient.name }}</li>
-            {% empty %}
-            <li>No ingredients found</li>
-            {% endfor %}
-        </ul>
-
-        <h3><strong>Instructions</strong></h3>
-        {% for line in instructions %}
-        <p>{{ line.step_number  }}. {{ line.description }}</p>
+      <h3>Ingredients</h3>
+      <ul class="ingredients-list">
+        {% for ingredient in ingredients %}
+        <li>{{ ingredient.name }}</li>
+        {% empty %}
+        <li>No ingredients found</li>
         {% endfor %}
+      </ul>
 
+      <h3>Instructions</h3>
+      <ul class="instructions-list">
+        {% for instruction in instructions %}
+        <li>{{ instruction.step_number }}. {{ instruction.description }}</li>
+        {% empty %}
+        <li>No instructions available.</li>
+        {% endfor %}
+      </ul>
 
-        <p><strong>Created at:</strong> {{ recipe.created_at|date:"Y-m-d H:i" }}</p>
-        <p><strong>Updated at:</strong> {{ recipe.updated_at|date:"Y-m-d H:i" }}</p>
+      <p>
+        <strong>Created at:</strong> {{ recipe.created_at|date:"Y-m-d H:i" }}
+      </p>
+      <p>
+        <strong>Updated at:</strong> {{ recipe.updated_at|date:"Y-m-d H:i" }}
+      </p>
 
-        <p><strong>Likes:</strong> {{ recipe.number_of_likes }}</p>
+      <p><strong>Likes:</strong> {{ recipe.number_of_likes }}</p>
 
-
-        <a href="{% url 'home' %}">Back to Home</a>
+      <a href="{% url 'home' %}">Back to Home</a>
     </div>
-</body>
-
+  </body>
 </html>
