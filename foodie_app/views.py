@@ -54,8 +54,7 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            
+            user = authenticate(username=username, password=password)          
             if user is not None:
                 login(request, user)
                 messages.success(request, f'Welcome back, {user.username}! 🎉')
@@ -122,6 +121,7 @@ def home(request):
         return JsonResponse({'error': str(e)}, status=500)
 
 
+@login_required
 def add_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
@@ -152,6 +152,7 @@ def add_recipe(request):
     return render(request, 'add_recipe.html', {'form': form})
 
 
+@login_required
 def delete_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
     if request.user == recipe.author or request.user.is_superuser:
@@ -159,6 +160,7 @@ def delete_recipe(request, recipe_id):
     return redirect('home')
 
 
+@login_required
 def update_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id, author=request.user)
     ingredients = recipe.ingredients.all()
@@ -196,6 +198,7 @@ def update_recipe(request, recipe_id):
                       'instructions': instructions})
 
 
+@login_required
 def add_comment(request, recipe_id):
     if request.method == 'POST':
         recipe = get_object_or_404(Recipe, id=recipe_id)
@@ -207,9 +210,11 @@ def add_comment(request, recipe_id):
             parent_comment = get_object_or_404(Comment, id=parent_id)
             comment.parent = parent_comment
         comment.save()
+        messages.success(request, "Comment successfully added! ✅")
         return redirect('home')
 
 
+@login_required
 def delete_comment(request, comment_id):
 
     comment = get_object_or_404(Comment, id=comment_id)
@@ -217,6 +222,7 @@ def delete_comment(request, comment_id):
 
         comment.replies.all().delete()
         comment.delete()
+        messages.success(request, "Comment successfully deleted! 🗑️")
     return redirect('home')
 
 
