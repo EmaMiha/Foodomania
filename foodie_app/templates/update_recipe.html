@@ -1,190 +1,198 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Update Recipe</title>
 
-  {% load static %}
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/add_recipes.css' %}">
   <link rel="shortcut icon" href="/media/recipes/images/recipe_12300151.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
 
   <style>
     body {
-      background-image: url('/media/recipes/images/food-background.png');
+      background-image: url("/media/recipes/images/food-background.png");
       background-size: cover;
       background-repeat: no-repeat;
       background-attachment: fixed;
-      min-height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding-top: 80px;
+      font-family: Arial, sans-serif;
     }
-
     .container {
-      background: rgba(255, 255, 255, 0.95);
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
       padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       max-width: 800px;
+      margin: 50px auto;
     }
-
-    h2 {
-      text-align: center;
-      color: #28a745;
-      margin-bottom: 30px;
-      font-weight: bold;
-    }
-
-    h3 {
-      color: #2c3e50;
-      margin-top: 30px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    input[type="text"],
-    input[type="file"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    .ingredient-item,
-    .instruction-item {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 10px;
-      align-items: center;
-    }
-
-    .btn-warning,
-    .btn-danger {
-      border-radius: 8px;
-    }
-
-    .upd {
-      display: block;
-      width: 100%;
-      margin-top: 30px;
-      padding: 10px;
-      font-size: 18px;
-      border-radius: 8px;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .footer a {
-      text-decoration: none;
-      color: #007bff;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-
-    img {
-      display: block;
-      margin: 0 auto;
-      border-radius: 12px;
+    .errorlist {
+      color: red;
+      list-style: none;
+      padding-left: 0;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
-    <h2>Update Recipe</h2>
-    <form id="update-form" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
+<div class="container">
+  <h2 class="text-center text-success mb-4">Update Recipe</h2>
 
-      <h3>Current Image</h3>
-      {% if recipe.image %}
-      <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 300px; max-height: 300px;" />
-      {% endif %}
+  <form method="post" enctype="multipart/form-data" id="updateRecipeForm">
+    {% csrf_token %}
+    {{ form.as_p }}
 
-      <h3>Update Image</h3>
-      {{ form.image }}
+    <h4 class="mt-4">Current Image:</h4>
+    {% if recipe.image %}
+      <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid rounded mb-3" style="max-height: 300px;">
+    {% endif %}
 
-      <h3>Ingredients</h3>
-      <div id="ingredient-inputs">
-        {% for ingredient in ingredients %}
-        <div class="ingredient-item">
-          <input type="text" name="ingredients[]" value="{{ ingredient.name }}" required>
-          <button type="button" class="btn btn-danger remove-ingredient">Delete</button>
+    <h4>Upload New Image:</h4>
+    {{ form.image }}
+    <h4 class="mt-4">Ingredients:</h4>
+    <div id="ingredients-container">
+      {% for ingredient in ingredients %}
+        <div class="input-group mb-2">
+          <input type="text" name="ingredients[]" class="form-control" value="{{ ingredient.name }}" required>
+          <button type="button" class="btn btn-outline-danger btn-sm remove-ingredient">
+            <i class="fas fa-trash"></i>
+          </button>
         </div>
-        {% endfor %}
-      </div>
-      <button type="button" id="add-ingredient-btn" class="btn btn-warning">Add Ingredient</button>
-
-      <h3>Instructions</h3>
-      <div id="instruction-inputs">
-        {% for instruction in instructions %}
-        <div class="instruction-item">
-          <input type="text" name="instructions[]" value="{{ instruction.description }}" required>
-          <button type="button" class="btn btn-danger remove-instruction">Delete</button>
-        </div>
-        {% endfor %}
-      </div>
-      <button type="button" id="add-instruction-btn" class="btn btn-warning">Add Instruction</button>
-
-      {% for field in form %}
-        {% for error in field.errors %}
-          <ul class="errorlist">
-            <li>{{ error }}</li>
-          </ul>
-        {% endfor %}
       {% endfor %}
+    </div>
+    <button type="button" id="add-ingredient-btn" class="btn btn-warning btn-sm mb-4">
+      <i class="fas fa-plus"></i> Add Ingredient
+    </button>
+    
+    <h4 class="mt-4">Instructions:</h4>
+    <div id="instructions-container">
+      {% for instruction in instructions %}
+        <div class="input-group mb-2">
+          <input type="text" name="instructions[]" class="form-control" value="{{ instruction.description }}" required>
+          <button type="button" class="btn btn-outline-danger btn-sm remove-instruction">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      {% endfor %}
+    </div>
+    <button type="button" id="add-instruction-btn" class="btn btn-warning btn-sm mb-4">
+      <i class="fas fa-plus"></i> Add Instruction
+    </button>
+    
 
-      <button type="submit" class="btn btn-primary upd text-center">Update Recipe</button>
-    </form>
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
 
-    <div class="footer">
-      <p><a href="{% url 'home' %}">Back to Home</a></p>
+    <div id="customErrors" class="alert alert-danger d-none"></div>
+
+    <button type="submit" class="btn btn-primary w-100 mt-3">Update Recipe</button>
+  </form>
+
+  <div class="text-center mt-4">
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary">Back to Home</a>
+  </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+  <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Recipe updated successfully! 🎉
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
   </div>
+</div>
 
- 
-  <div id="toastContainer" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055"></div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="{% static 'js/update.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('update-form');
 
-    form.addEventListener('submit', function (e) {
-      const toastContainer = document.getElementById('toastContainer');
-
-      const toast = document.createElement('div');
-      toast.className = 'toast align-items-center text-white bg-success border-0 show';
-      toast.setAttribute('role', 'alert');
-      toast.setAttribute('aria-live', 'assertive');
-      toast.setAttribute('aria-atomic', 'true');
-
-      toast.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">
-            Recipe updated successfully! 🎉
-          </div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-      `;
-
-      toastContainer.appendChild(toast);
-      new bootstrap.Toast(toast, { delay: 3000 }).show();
-    });
+  $('#add-ingredient-btn').click(function () {
+    $('#ingredients-container').append(`
+      <div class="input-group mb-2">
+        <input type="text" name="ingredients[]" class="form-control" placeholder="Enter an ingredient" required>
+        <button type="button" class="btn btn-danger remove-ingredient">Delete</button>
+      </div>
+    `);
   });
+
+  $('#add-instruction-btn').click(function () {
+    $('#instructions-container').append(`
+      <div class="input-group mb-2">
+        <input type="text" name="instructions[]" class="form-control" placeholder="Enter an instruction" required>
+        <button type="button" class="btn btn-danger remove-instruction">Delete</button>
+      </div>
+    `);
+  });
+
+  $(document).on('click', '.remove-ingredient, .remove-instruction', function () {
+    $(this).closest('.input-group').remove();
+  });
+
+  document.getElementById('updateRecipeForm').addEventListener('submit', function (e) {
+    let isValid = true;
+    let errors = [];
+
+    const titleInput = document.querySelector('input[name="title"]');
+    if (!titleInput || titleInput.value.trim() === '') {
+      isValid = false;
+      errors.push('Please enter the title of the recipe.');
+    }
+
+    const categorySelect = document.querySelector('select[name="categories"]') || document.querySelector('select[name="categories[]"]');
+    if (categorySelect) {
+      const selectedCategories = Array.from(categorySelect.selectedOptions);
+      if (selectedCategories.length === 0) {
+        isValid = false;
+        errors.push('Please select at least one category.');
+      }
+    }
+
+    const dietSelect = document.querySelector('select[name="diet"]');
+    if (dietSelect && !dietSelect.value) {
+      isValid = false;
+      errors.push('Please select a diet.');
+    }
+
+    const ingredientInputs = document.querySelectorAll('input[name="ingredients[]"]');
+    const hasIngredient = Array.from(ingredientInputs).some(input => input.value.trim() !== '');
+    if (!hasIngredient) {
+      isValid = false;
+      errors.push('Please add at least one ingredient.');
+    }
+
+    const instructionInputs = document.querySelectorAll('input[name="instructions[]"]');
+    const hasInstruction = Array.from(instructionInputs).some(input => input.value.trim() !== '');
+    if (!hasInstruction) {
+      isValid = false;
+      errors.push('Please add at least one instruction.');
+    }
+
+    if (!isValid) {
+      e.preventDefault();
+      const customErrors = document.getElementById('customErrors');
+      customErrors.classList.remove('d-none');
+      customErrors.innerHTML = errors.map(error => `<div>${error}</div>`).join('');
+    } else {
+      setTimeout(() => {
+        const toast = new bootstrap.Toast(document.getElementById('successToast'));
+        toast.show();
+      }, 200);
+    }
+  });
+
 </script>
-
 </body>
-
 </html>
