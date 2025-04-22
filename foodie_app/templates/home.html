@@ -206,8 +206,8 @@
             <h4>Diets:</h4>
             <div class="filtchk">
               {% for diet in diets %}
-              <label>
-                <input type="checkbox" name="diets" value="{{ diet.id }}" {% if diet.id|stringformat:'d' in selected_diets %} checked {% endif %} class="check"> {{ diet.name }}
+              <label title="{{ diet.description }}">
+                <input type="checkbox" name="diets" value="{{ diet.id }}" {% if diet.id|stringformat:'d' in selected_diets %} checked {% endif %} class="check" title="{{ diet.description }}"> {{ diet.name }}
               </label>
               {% endfor %}
             </div>
@@ -216,8 +216,8 @@
             <h4>Categories:</h4>
             <div class="filtchk">
               {% for c in categories %}
-              <label>
-                <input type="checkbox" name="categories" value="{{ c.id }}" {% if c.id|stringformat:'d' in selected_categories %} checked {%  endif %} class="check"> {{ c.name }}
+              <label title="{{ c.description }}" >
+                <input type="checkbox" name="categories" value="{{ c.id }}" {% if c.id|stringformat:'d' in selected_categories %} checked {%  endif %} class="check" title="{{ c.description }}"> {{ c.name }}
               </label>
               {% endfor %}
             </div>
