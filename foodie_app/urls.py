@@ -1,29 +1,6 @@
 
-# from django.urls import path
-# from .views import register, login_view, home
-
-# urlpatterns = [
-#    path('register/', register, name='register'),
-#   path('login/', login_view, name='login'),
-#   path('home/', home, name='home'),
-# ]
-
-# urls.py
-# from django.urls import path
-# from foodie_app import views as index_views
-
-# urlpatterns = [
-#    path('', index_views.login_view, name='login'),  # Redirect root to login
-#    path('register/', index_views.register, name='register'),
-#    path('home/', index_views.home, name='home'),
-# ]
-
 from django.urls import path
-from . import views  # Import views
-from django.contrib.auth.views import LogoutView  # Import the LogoutView
-# from django.conf.urls.static import static
-# from django.conf import settings
-
+from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),

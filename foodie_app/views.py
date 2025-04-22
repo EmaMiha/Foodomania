@@ -54,7 +54,7 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)          
+            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
                 messages.success(request, f'Welcome back, {user.username}! 🎉')
@@ -141,11 +141,13 @@ def add_recipe(request):
                     Instructions.objects.create(
                         recipe=recipe, step_number=index, description=inst)
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                return JsonResponse({'success': True, 'message': 'Recipe successfully added!'})
+                return JsonResponse({'success': True,
+                                     'message': 'Recipe successfully added!'})
             return redirect('home')
         else:
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                return JsonResponse({'success': False, 'message': 'Failed to add recipe. Check the form.'})
+                return JsonResponse({'success': False,
+                                     'message': 'Failed to add recipe.'})
     else:
         form = RecipeForm()
 
@@ -257,5 +259,5 @@ def about(request):
 
 def logout_view(request):
     logout(request)
-    messages.success(request, "You have been successfully logged out. See you again!")
+    messages.success(request, "Successfully logged out. See you again!")
     return redirect('home')
