@@ -209,6 +209,7 @@ h3 {
   position: fixed;
   z-index: 1050;
   top: 0;
+  opacity: 0.9;
 }
 .navbar .container-fluid {
   padding-left: 30px;
@@ -239,7 +240,11 @@ h3 {
 .navbar-toggler:focus {
   box-shadow: none;
 }
+/* Carausel */
+.caraus{
 
+  margin-top: 100px;
+}
 /* Outline success button */
 .btn-outline-success {
   font-weight: 500;
