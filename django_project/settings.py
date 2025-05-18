@@ -16,9 +16,9 @@ import dj_database_url
 # if os.path.isfile('env.py'):
 #     import env
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -99,14 +99,17 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 #   }
 # }
 
-DATABASE_URL = os.environ.get("DATABASE_URL")
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL environment variable is not set.")
+# DATABASE_URL = os.environ.get("DATABASE_URL")
+# if not DATABASE_URL:
+#     raise ValueError("DATABASE_URL environment variable is not set.")
+
+# DATABASES = {
+#     'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+# }
 
 DATABASES = {
-    'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
