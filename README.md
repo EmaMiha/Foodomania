@@ -1,6 +1,7 @@
 # Foodomania
 
-Live version:
+##### Live Version: [Foodomania](https://foodomania-p4-37eb7adaefc4.herokuapp.com/)
+##### Repository: [GitHub Repo](https://github.com/EmaMiha/Foodomania)
 
 # About
 Foodomania is a web application presenting a collection of cooking instructions and food preparation ideas for users of all skill levels. The application allows users to do discovering and searching recipes, viewing detailed recipe information, leaving the comments and likes, creating and deleting recipes.
@@ -25,14 +26,13 @@ The goal of this app is to create a user-friendly, engaging platform that helps 
 ![image](media/recipes/images/Issue.jpeg)
 
 
-# Technologies used
+# Features
 
-#### □ Languages:
+Please refer to the [FEATURES.md]() file for all features-related documentation.
 
-  #### ▫︎ Python 3.8.5: the primary language used to develop the server-side of the website.
-  ##### ▫︎ JS: the primary language used to develop interactive components of the website.
-  ##### ▫︎ HTML: the markup language used to create the website.
-  ##### ▫︎ CSS: the styling language used to style the website.
+
+
+
 
 
 
