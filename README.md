@@ -28,9 +28,18 @@ The goal of this app is to create a user-friendly, engaging platform that helps 
 
 # Features
 
-Please refer to the [FEATURES.md]() file for all features-related documentation.
+Please refer to the [FEATURES.md](https://github.com/EmaMiha/Foodomania/blob/main/Texting.md) file for all features-related documentation.
 
 
+# Flowcharts
+
+The following flowcharts were created to help to understand the application and its functionality.
+
+The flowcharts were created using Lucidchart.
+
+
+
+![image](media/recipes/images/Flowcharts.jpg)
 
 
 
