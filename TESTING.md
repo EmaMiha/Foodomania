@@ -69,3 +69,35 @@ The python code was tested using Coding Institutes Python Linter and no errors w
 
 
 
+### Lighthouse Report
+
+#### Home Page
+
+![image](media/recipes/images/homelight.png)
+
+#### About Page
+
+![image](media/recipes/images/aboutlight.png)
+
+#### Login Page
+
+![image](media/recipes/images/loginlight.png)
+
+#### Register Page
+
+![image](media/recipes/images/registerlight.png)
+
+#### Add Category Page
+
+![image](media/recipes/images/addcategorylight.png)
+
+#### Add Diet Page
+
+![image](media/recipes/images/adddietlight.png)
+
+#### Add Recipe Page
+
+![image](media/recipes/images/addrecipelight.png)
+
+
+
