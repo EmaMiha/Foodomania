@@ -36,3 +36,36 @@ Y |
 | Add a New Recipe |  |  |  |
 | 1.  |  Click on Add a New Recipe |  Redirection Add a New Recipe page  | Y |
 | 2.  | Enter Title, Ingredients, Instructions and choose Categories and Diet  | Recipe added successfully | Y |
+
+
+# Validation
+
+### HTML Validation
+ 
+* No errors or warnings were found when passing through the official Nu Html Checker.
+
+![image](media/recipes/images/htmlvalidator.png)
+
+### CSS Validation
+
+
+* No errors or warnings were found when passing through the official W3C validator.
+
+![image](media/recipes/images/cssvalidations.png)
+
+
+### JS Validation
+
+* While running the JavaScript validator through the JSHint, warnings were detected, but no errors were found.
+
+![image](media/recipes/images/jsvalidation.png)
+
+### Python Validation
+
+The python code was tested using Coding Institutes Python Linter and no errors were detected.
+
+
+![image](media/recipes/images/pythonvalidation.png)
+
+
+

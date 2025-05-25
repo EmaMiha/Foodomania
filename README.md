@@ -43,7 +43,7 @@ The flowcharts were created using Lucidchart.
 
 
 # Testing
-Please refer to the [TESTING.md]() file for all test-related documentation.
+Please refer to the [TESTING.md](https://github.com/EmaMiha/Foodomania/blob/main/TESTING.md) file for all test-related documentation.
 
 
 
