@@ -1,4 +1,4 @@
-/* Global resets */
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -7,7 +7,7 @@ body {
   box-sizing: border-box;
 }
 
-/* Main container */
+
 .container {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
@@ -18,13 +18,13 @@ body {
   margin: auto;
 }
 
-/* Lists */
+
 ul {
   list-style-type: none;
   padding-left: 0;
 }
 
-/* Headings */
+
 h2,
 h3 {
   text-align: center;
@@ -32,7 +32,7 @@ h3 {
   color: #333;
 }
 
-/* Recipe cards grid */
+
 .recipe-list {
   display: flex;
   flex-wrap: wrap;
@@ -41,7 +41,7 @@ h3 {
   padding: 1rem;
 }
 
-/* Single recipe card */
+
 .recipe-card {
   width: 300px;
   background: #fff;
@@ -82,7 +82,7 @@ h3 {
   font-style: italic;
 }
 
-/* Buttons: add, update, delete, comment, reply */
+
 .add-recipe-button-container {
   position: fixed;
   left: 20px;
@@ -133,7 +133,7 @@ h3 {
   background-color: #218838;
 }
 
-/* Comments */
+
 .comment {
   margin-bottom: 10px;
   padding: 10px;
@@ -153,7 +153,7 @@ h3 {
   display: none;
 }
 
-/* Pagination */
+
 .pagination {
   margin: 20px 0;
   text-align: center;
@@ -177,7 +177,7 @@ h3 {
   background-color: #f0f0f0;
 }
 
-/* Search and Filter */
+
 .search_form {
   display: flex;
   flex-direction: column;
@@ -202,7 +202,7 @@ h3 {
   flex-direction: column;
 }
 
-/* Navbar */
+
 .navbar {
   width: 100%;
   padding: 0;
@@ -240,12 +240,12 @@ h3 {
 .navbar-toggler:focus {
   box-shadow: none;
 }
-/* Carausel */
+
 .caraus{
 
   margin-top: 100px;
 }
-/* Outline success button */
+
 .btn-outline-success {
   font-weight: 500;
   padding: 5px 12px;
@@ -257,7 +257,7 @@ h3 {
   color: #fff;
 }
 
-/* Footer */
+
 footer {
   text-align: center;
   margin-top: 20px;
@@ -269,7 +269,7 @@ footer p {
   font-size: 1.2rem;
 }
 
-/* Modal comments */
+
 .modal-body .comment {
   background-color: #fff;
   padding: 15px;
@@ -291,7 +291,7 @@ footer p {
   padding-right: 10px;
 }
 
-/* Close button */
+
 .close {
   color: #aaa;
   float: right;

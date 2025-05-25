@@ -30,6 +30,16 @@ The goal of this app is to create a user-friendly, engaging platform that helps 
 
 Please refer to the [FEATURES.md](https://github.com/EmaMiha/Foodomania/blob/main/FEATURES.md) file for all features-related documentation.
 
+## Design
+
+The application employs a simple design approach, characterized by a minimalistic user interface with focus on usability. This simplicity enhances user experience and allowing users to interact with the system efficiently.
+
+Color Scheme
+
+![image](media/recipes/images/colors.png)
+
+
+
 
 # Flowcharts
 
@@ -47,8 +57,32 @@ Please refer to the [TESTING.md](https://github.com/EmaMiha/Foodomania/blob/main
 
 
 
+# Deployment 
 
+The app was deployed to Heroku.
 
+1. Setting up Heroku:
+
+* Go to the Heroku website (https://www.heroku.com/)
+* Login to Heroku and choose Create App
+* Click New and Create a new app
+* Choose a name and select your location
+* Go to the Resources tab
+* From the Resources list select Heroku Postgres
+* Navigate to the Deploy tab
+* Click on Connect to Github and search for your repository
+* Navigate to the Settings tab
+* Reveal Config Vars and add your Cloudinary, Database URL (from Heroku-Postgres) and Secret key
+
+2. Deployment on Heroku:
+
+* Go to the Deploy tab.
+* Choose the main branch for deploying and enable automatic deployment
+* Select manual deploy for building the App
+
+# Acknowledgments
+
+* Code Institute tutors and Slack community members for their support and help.
 
 
 
